@@ -1,17 +1,15 @@
 Prostredi
 ---------
-
-Ubuntu 64bit
 Windows 64bit
-
+C# - Visual Studio
 Autori
 ------
 
-Nazev tymu
-- xlogin01 jmeno prijmeni 
-- xlogin02 jmeno prijmeni 
-- xlogin03 jmeno prijmeni 
-- xlogin04 jmeno prijmeni 
+Pepega Blinders
+- xbarto0e Patrik Bartoš
+- xchudy06 Daniel Chudý
+- xkurti03 Tomáš Kurtim
+- xvarte00 Adam Vartecký
 
 Licence
 -------
