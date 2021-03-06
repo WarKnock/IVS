@@ -16,4 +16,4 @@ Pepega Blinders
 Licence
 -------
 
-Tento program je poskytovan...
+Tento program je poskytován licencí GPL.
