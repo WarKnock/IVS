@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace turbocalc
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Calc.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Calc : Window
     {
-        public MainWindow()
+        public Calc()
         {
             InitializeComponent();
         }
