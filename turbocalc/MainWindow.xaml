@@ -22,14 +22,16 @@
         <Button x:Name="Button_2" Content="2" HorizontalAlignment="Left" Height="47" Margin="57,125,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36" Grid.Row="2" Background="#FFA0A0A0" BorderBrush="#FF515151"/>
         <Button x:Name="Button_3" Content="3" HorizontalAlignment="Left" Height="47" Margin="109,125,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36" Grid.Row="2" BorderBrush="#FF515151" Background="#FFA0A0A0"/>
         <Button x:Name="Button_0" Content="0&#xD;&#xA;" HorizontalAlignment="Left" Height="47" Margin="5,177,0,0" VerticalAlignment="Top" Width="47" Click="Button_Click" FontSize="36" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" Grid.Row="2" Background="#FFA0A0A0"/>
-        <Button x:Name="Button_0_Copy" Content="CLEAR" HorizontalAlignment="Left" Height="47" Margin="57,177,0,0" VerticalAlignment="Top" Width="98" Click="Button_Click" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" Grid.Row="2" FontSize="20" Background="#FFA0A0A0"/>
-        <TextBlock HorizontalAlignment="Center" Height="42" Margin="0,7,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" Background="#FFC7C7C7" Opacity="0.7" Foreground="Black" FontSize="11" Grid.Row="1"/>
+        <Button x:Name="Button_0_Copy" Content="CLEAR" HorizontalAlignment="Left" Height="47" Margin="57,177,0,0" VerticalAlignment="Top" Width="99" Click="Button_Click" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" Grid.Row="2" FontSize="20" Background="#FFA0A0A0"/>
+        <TextBlock HorizontalAlignment="Center" Height="42" Margin="0,7,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" Background="#FFC7C7C7" Opacity="0.7" Foreground="Black" FontSize="11" Grid.Row="1"/>
         <Button Content="÷" HorizontalAlignment="Left" Height="48" Margin="161,21,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24" Click="Button_Click_2"/>
         <Button Content="×" HorizontalAlignment="Left" Height="48" Margin="229,21,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="48" Margin="161,73,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="48" Margin="229,72,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="48" Margin="229,124,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="48" Margin="161,124,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0"/>
+        <Button Content="√" HorizontalAlignment="Left" Height="48" Margin="161,73,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" Click="Button_Click_3" FontFamily="Arial" FontSize="24"/>
+        <Button Content="xⁿ" HorizontalAlignment="Left" Height="48" Margin="229,72,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24" Click="Button_Click_4"/>
+        <Button Content="-" HorizontalAlignment="Left" Height="48" Margin="229,124,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24"/>
+        <Button Content="+" HorizontalAlignment="Left" Height="48" Margin="161,124,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24"/>
+        <Button Content="." HorizontalAlignment="Left" Height="48" Margin="161,177,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24"/>
+        <Button Content="x!" HorizontalAlignment="Left" Height="48" Margin="229,177,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24"/>
     </Grid>
 
 </Window>
