@@ -4,6 +4,9 @@ using turbocalc;
 
 namespace CalculatorTests
 {
+    /**
+     * Testing cases for Add
+     */
     [TestClass]
     public class Add
     {
@@ -33,13 +36,16 @@ namespace CalculatorTests
 
     }
 
+    /**
+     * Testing cases for Subtract
+     */
     [TestClass]
     public class Subtract
     {
         [TestMethod]
         public void BasicTest()
         {
-
+            
         }
     }
 
