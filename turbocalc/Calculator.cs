@@ -79,11 +79,11 @@
          * @brief Makes factorial of x - x!
          * 
          * @param x Number to make factorial of
-         * @return int
+         * @return int retrurns -1 if x < 0, returns 1 if x == 0 else returns factorial
          */
         public static int Factorial(int x)
         {
-            return -1;
+            return 0;
         }
     }
 }
