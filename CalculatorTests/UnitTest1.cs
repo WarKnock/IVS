@@ -4,15 +4,15 @@ using turbocalc;
 
 namespace CalculatorTests
 {
-    /**
-     * Testing cases for Add
-     */
+    /// <summary>
+    /// Testing cases for Add
+    /// </summary>
     [TestClass]
     public class Add
     {
-        /**
-         * @brief Testing adding two integers
-         */
+       /// <summary>
+       /// Testing adding two integers
+       /// </summary>
         [TestMethod]
         public void BasicTest()
         {
@@ -22,9 +22,9 @@ namespace CalculatorTests
             Assert.AreEqual(-3, Calculator.Add(-1,-2));
         }
 
-        /**
-         * @brief Testing adding two double numbers
-         */
+        /// <summary>
+        /// Testing adding two doubles
+        /// </summary>
         [TestMethod]
         public void DoubleTest()
         {
@@ -36,31 +36,40 @@ namespace CalculatorTests
 
     }
 
-    /**
-     * Testing cases for Subtract
-     */
+    /// <summary>
+    /// Testing cases for subtract
+    /// </summary>
     [TestClass]
     public class Subtract
     {
-        /**
-         * @brief Testing subtracting two integers
-         */
+        /// <summary>
+        /// Testing subtracting two integers
+        /// </summary>
         [TestMethod]
         public void BasicTest()
         {
             
         }
+
+        /// <summary>
+        /// Testing subtracting two doubles
+        /// </summary>
+        [TestMethod]
+        public void DoubleTest()
+        {
+
+        }
     }
 
-    /**
-     * Testing cases for Multiply
-     */
+    /// <summary>
+    /// Testing cases for Multiply
+    /// </summary>
     [TestClass]
     public class Multiply
     {
-        /**
-         * @brief Testing multiplying two integers
-         */
+        /// <summary>
+        /// Testing multiplying two integers
+        /// </summary>
         [TestMethod]
         public void BasicTest()
         {
@@ -70,9 +79,9 @@ namespace CalculatorTests
             Assert.AreEqual(1, Calculator.Mupltiply(-1,-1));
         }
 
-        /**
-         * @brief Testing multiplying two double numbers
-         */
+        /// <summary>
+        /// Testing multiplying two doubles
+        /// </summary>
         [TestMethod]
         public void DoubleTest()
         {
@@ -83,24 +92,24 @@ namespace CalculatorTests
         }
     }
 
-    /**
-     * Testing cases for Divide
-     */
+    /// <summary>
+    /// Testing cases for Divide
+    /// </summary>
     [TestClass]
     public class Divide
     {
-        /**
-         * @brief Testing dividing two integers
-         */
+        /// <summary>
+        /// Testing dividing two integers
+        /// </summary>
         [TestMethod]
         public void BasicTest()
         {
 
         }
 
-        /**
-         * @brief Testing dividing two double numbers
-         */
+        /// <summary>
+        /// Testing dividing two doubles
+        /// </summary>
         [TestMethod]
         public void DoubleTest()
         {
@@ -108,15 +117,15 @@ namespace CalculatorTests
         }
     }
 
-    /**
-     * Testing cases for Power
-     */
+    /// <summary>
+    /// Testing cases for Power
+    /// </summary>
     [TestClass]
     public class Power
     {
-        /**
-         * @brief Testing power of integer
-         */
+        /// <summary>
+        /// Testing power of integer
+        /// </summary>
         [TestMethod]
         public void BasicTest()
         {
@@ -127,9 +136,9 @@ namespace CalculatorTests
             Assert.AreEqual(0.25, Calculator.Power(2, -2));
         }
 
-        /**
-         * @brief Testing power of double
-         */
+        /// <summary>
+        /// Testing power of double
+        /// </summary>
         [TestMethod]
         public void DoubleTest()
         {
@@ -138,24 +147,24 @@ namespace CalculatorTests
         }
     }
 
-    /**
-     * Testing cases for Root
-     */
+    /// <summary>
+    /// Testing cases for Root
+    /// </summary>
     [TestClass]
     public class Root
     {
-        /**
-         * @brief Testing Root of integer
-         */
+        /// <summary>
+        /// Testing root of integer
+        /// </summary>
         [TestMethod]
         public void BasicTest()
         {
 
         }
 
-        /**
-         * @brief Testing Root of double
-         */
+        /// <summary>
+        /// Testing root of double
+        /// </summary>
         [TestMethod]
         public void DoubleTest()
         {
@@ -163,21 +172,39 @@ namespace CalculatorTests
         }
     }
 
-    /**
-     * Testing cases for Factorial
-     */
+    /// <summary>
+    /// Testing cases for Factorial
+    /// </summary>
     [TestClass]
     public class Factorial
     {
-        /**
-         * @brief Testing factorial
-         */
+        /// <summary>
+        /// Testing factorial of integer
+        /// </summary>
         [TestMethod]
         public void BasicTest()
         {
             Assert.AreEqual(6, Calculator.Factorial(3));
             Assert.AreEqual(1, Calculator.Factorial(1));
             Assert.AreEqual(1, Calculator.Factorial(0));
+            Assert.AreEqual(-1, Calculator.Factorial(-5));
+        }
+
+        /// <summary>
+        /// Testing factorial of zero
+        /// </summary>
+        [TestMethod]
+        public void ZeroTest()
+        {
+            Assert.AreEqual(1, Calculator.Factorial(0));
+        }
+
+        /// <summary>
+        /// Testing factorial of negative number
+        /// </summary>
+        [TestMethod]
+        public void NegativeTest()
+        {
             Assert.AreEqual(-1, Calculator.Factorial(-5));
         }
     }
