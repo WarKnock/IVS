@@ -175,7 +175,10 @@ namespace CalculatorTests
         [TestMethod]
         public void BasicTest()
         {
-
+            Assert.AreEqual(6, Calculator.Factorial(3));
+            Assert.AreEqual(1, Calculator.Factorial(1));
+            Assert.AreEqual(1, Calculator.Factorial(0));
+            Assert.AreEqual(-1, Calculator.Factorial(-5));
         }
     }
 }
