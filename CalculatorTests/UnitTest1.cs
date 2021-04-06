@@ -97,6 +97,15 @@ namespace CalculatorTests
         {
 
         }
+
+        /**
+         * @brief Testing dividing two double numbers
+         */
+        [TestMethod]
+        public void DoubleTest()
+        {
+
+        }
     }
 
     /**
@@ -111,7 +120,21 @@ namespace CalculatorTests
         [TestMethod]
         public void BasicTest()
         {
+            Assert.AreEqual(4, Calculator.Power(2,2));
+            Assert.AreEqual(4, Calculator.Power(-2, 2));
+            Assert.AreEqual(0, Calculator.Power(7, 0));
+            Assert.AreEqual(0, Calculator.Power(-7, 0));
+            Assert.AreEqual(0.25, Calculator.Power(2, -2));
+        }
 
+        /**
+         * @brief Testing power of double
+         */
+        [TestMethod]
+        public void DoubleTest()
+        {
+            Assert.AreEqual(1.21, Calculator.Power(1.1,2));
+            Assert.AreEqual(0, Calculator.Power(5.6, 0));
         }
     }
 
@@ -126,6 +149,15 @@ namespace CalculatorTests
          */
         [TestMethod]
         public void BasicTest()
+        {
+
+        }
+
+        /**
+         * @brief Testing Root of double
+         */
+        [TestMethod]
+        public void DoubleTest()
         {
 
         }
