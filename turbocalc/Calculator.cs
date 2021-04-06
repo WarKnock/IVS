@@ -59,7 +59,7 @@
          */
         public static double Power(double x, int n)
         {
-            return 0;
+            return -1;
         }
 
         /**
@@ -71,7 +71,7 @@
          */
         public static double Root(double x, int n)
         {
-            return 0;
+            return -1;
         }
 
 
@@ -83,7 +83,7 @@
          */
         public static int Factorial(int x)
         {
-            return 0;
+            return -1;
         }
     }
 }
