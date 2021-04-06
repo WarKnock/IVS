@@ -67,11 +67,11 @@
          * 
          * @param x Number to make square of
          * @param n n-th root
-         * @return double
+         * @return double returns -1 if x < 0 else returns root
          */
         public static double Root(double x, int n)
         {
-            return -1;
+            return -2;
         }
 
 
@@ -79,7 +79,7 @@
          * @brief Makes factorial of x - x!
          * 
          * @param x Number to make factorial of
-         * @return int retrurns -1 if x < 0, returns 1 if x == 0 else returns factorial
+         * @return int returns -1 if x < 0, returns 1 if x == 0 else returns factorial
          */
         public static int Factorial(int x)
         {
