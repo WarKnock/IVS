@@ -131,8 +131,8 @@ namespace CalculatorTests
         {
             Assert.AreEqual(4, Calculator.Power(2,2));
             Assert.AreEqual(4, Calculator.Power(-2, 2));
-            Assert.AreEqual(0, Calculator.Power(7, 0));
-            Assert.AreEqual(0, Calculator.Power(-7, 0));
+            Assert.AreEqual(1, Calculator.Power(7, 0));
+            Assert.AreEqual(1, Calculator.Power(-7, 0));
             Assert.AreEqual(0.25, Calculator.Power(2, -2));
         }
 
@@ -143,7 +143,7 @@ namespace CalculatorTests
         public void DoubleTest()
         {
             Assert.AreEqual(1.21, Calculator.Power(1.1,2));
-            Assert.AreEqual(0, Calculator.Power(5.6, 0));
+            Assert.AreEqual(1, Calculator.Power(5.6, 0));
         }
     }
 
