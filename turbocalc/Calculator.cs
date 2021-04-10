@@ -1,4 +1,6 @@
-﻿namespace turbocalc
+﻿using System;
+
+namespace turbocalc
 {
     /// <summary>
     /// Math class for calculator
@@ -6,85 +8,121 @@
     public class Calculator
     {
         /// <summary>
-        /// Adds two numbers - a+b 
+        /// Adds the two numbers
         /// </summary>
         /// <param name="a">First number</param>
         /// <param name="b">Second number</param>
-        /// <returns>double a+b</returns>
+        /// <returns>double a + b</returns>
         public static double Add(double a, double b)
         {
-            return 0;
+            return (double)((decimal)a + (decimal)b);
         }
 
         /// <summary>
-        /// Subtracts two numbers - a-b
+        /// Subtracts the two numbers
         /// </summary>
         /// <param name="a">First number</param>
         /// <param name="b">Second number</param>
-        /// <returns>double a-b</returns>
+        /// <returns>double a - b</returns>
         public static double Subtract(double a, double b)
         {
-            return 0;
+            return (double)((decimal)a - (decimal)b);
         }
 
         /// <summary>
-        /// Divides two numbers - a/b
+        /// Divides two numbers
         /// </summary>
         /// <param name="a">First number</param>
         /// <param name="b">Second number</param>
-        /// <returns>double a/b</returns>
+        /// <returns>double a / b</returns>
         public static double Divide(double a, double b)
         {
-            return 0;
+            return (double)((decimal)a / (decimal)b);
         }
 
         /// <summary>
-        /// Multiplies two numbers - a*b
+        /// Multiplies two numbers
         /// </summary>
         /// <param name="a">First number</param>
         /// <param name="b">Second number</param>
-        /// <returns>double a*b</returns>
+        /// <returns>double a * b</returns>
         public static double Mupltiply(double a, double b)
         {
-            return 0;
+            return (double)((decimal)a * (decimal)b);
         }
 
         /// <summary>
-        /// Makes n-th power of x - x^n
+        /// The number 'x' to the power of 'n'
         /// </summary>
-        /// <param name="x">Number to make power of</param>
-        /// <param name="n">Exponent of power</param>
+        /// <param name="x">Base</param>
+        /// <param name="n">Exponent</param>
         /// <returns>double x^n</returns>
         public static double Power(double x, int n)
         {
-            return -1;
+            decimal sum = 1;
+            bool negative = false;
+            if (n == 0)
+                return 1;
+            else if (n < 0)
+                negative = true;
+            for (int i = 0; i < (negative ? -n : n); i++)
+                sum *= (decimal)x;
+            return negative ? (double)(1/sum) : (double)sum;
         }
 
         /// <summary>
-        /// Makes n-th root of x - x^(1/n)
+        /// 'n'-th root of 'x' - x^(1/n)
         /// </summary>
         /// <param name="x">Number to make root of</param>
-        /// <param name="n">Exponent of root</param>
+        /// <param name="n">Exponent</param>
         /// <returns>  
-        ///     double root x^(1/n),
-        ///     if x is lesser than 0 then it returns -1
+        ///     double root num^(1/n),
+        ///     Returns -1 if 'n'-th root of number 'x' is not defined
         /// </returns>
         public static double Root(double x, int n)
         {
-            return -2;
+            if (x == 0)
+                return 0;
+
+            bool negative = false;
+            //Negative number and odd-order root
+            if (x < 0 && n % 2 != 0)
+                negative = true;
+            //Even-order root of negative number is not defined
+            else if (x < 0 && n % 2 == 0)
+                return -1;
+
+            //If root is 0
+            if (n == 0)
+                return - 1;
+            else
+                return negative ? -(Math.Pow(-x, 1.0 / n)) : (Math.Pow(x, 1.0 / n));
         }
 
 
         /// <summary>
-        /// Makes factorial of a number x - x!
+        /// Makes factorial of a number 'x'
         /// </summary>
         /// <param name="x">Number to make factorial of</param>
         /// <returns>
-        ///     int x!; if x==0 then returns 1; if x is lesser than 0 than returns -1
+        ///     int x!,
+        ///     Returns -1 if 'x' is lesser than 0
         /// </returns>
         public static int Factorial(int x)
         {
-            return 0;
+            int sum = 1;
+            //Factorial of 0
+            if (x == 0)
+                return 1;
+            //Negative input
+            else if (x < 0)
+                return -1;
+            else
+            {
+                for (int i = x; i > 0; i--)
+                    sum *= i;
+                return sum;
+            }
         }
     }
 }
