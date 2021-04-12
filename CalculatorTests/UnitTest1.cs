@@ -48,7 +48,12 @@ namespace CalculatorTests
         [TestMethod]
         public void BasicTest()
         {
-            
+            Assert.AreEqual(3, Calculator.Subtract(5,2));
+            Assert.AreNotEqual(0, Calculator.Subtract(1,2));
+            Assert.AreEqual(-3, Calculator.Subtract(5,-8));
+            Assert.AreEqual(2, Calculator.Subtract(-1,-2));
+            Assert.AreEqual(-13, Calculator.Subtract(-5,8));
+            Assert.AreNotEqual(0, Calculator.Subtract(-1,-2));
         }
 
         /// <summary>
@@ -57,7 +62,12 @@ namespace CalculatorTests
         [TestMethod]
         public void DoubleTest()
         {
-
+            Assert.AreEqual(2.9, Calculator.Subtract(5.2,2.3));
+            Assert.AreNotEqual(0, Calculator.Subtract(1.1,2.1));
+            Assert.AreEqual(-2.5, Calculator.Subtract(5.5,-8));
+            Assert.AreEqual(2, Calculator.Subtract(-1.9,-2.9));
+            Assert.AreEqual(-11.1, Calculator.Subtract(-6.9,4.2));
+            Assert.AreNotEqual(0, Calculator.Subtract(-1.8,-2.01));
         }
     }
 
@@ -104,7 +114,11 @@ namespace CalculatorTests
         [TestMethod]
         public void BasicTest()
         {
-
+            Assert.AreEqual(2, Calculator.Divide(6,3));
+            Assert.AreNotEqual(10, Calculator.Divide(5, 2));
+            Assert.AreEqual(-5, Calculator.Divide(-5,1));
+            Assert.AreEqual(1, Calculator.Divide(-1,-1));
+            Assert.ThrowsException<ArgumentException>(Calculator.Divide(1,0));
         }
 
         /// <summary>
@@ -113,7 +127,11 @@ namespace CalculatorTests
         [TestMethod]
         public void DoubleTest()
         {
-
+            Assert.AreEqual(2.3, Calculator.Divide(6.9, 3));
+            Assert.AreNotEqual(1, Calculator.Divide(1.6, 2.3));
+            Assert.AreEqual(-4.75, Calculator.Divide(-5.7, 1.2));
+            Assert.AreEqual(1, Calculator.Divide(-1.0, -1.0));
+            Assert.ThrowsException<ArgumentException>(Calculator.Divide(1.0,0.0));
         }
     }
 
@@ -159,7 +177,13 @@ namespace CalculatorTests
         [TestMethod]
         public void BasicTest()
         {
-
+            Assert.AreEqual(2, Calculator.Root(4,2));
+            Assert.AreEqual(2, Calculator.Root(8,3));
+            Assert.AreEqual(0, Calculator.Root(0,2));
+            Assert.ThrowsException < ArgumentException > (Calculator.Root(-1,2));
+            Assert.ThrowsException<ArgumentException>(Calculator.Root(2,0));
+            Assert.AreEqual(0.5,Calculator.Root(4,-2));
+            Assert.AreEqual(-1,Calculator.Root(-1,3));  
         }
 
         /// <summary>
@@ -167,8 +191,8 @@ namespace CalculatorTests
         /// </summary>
         [TestMethod]
         public void DoubleTest()
-        {
-
+        { 
+            Assert.AreEqual(0.25, Calculator.Root(0.0625, 2));
         }
     }
 
@@ -185,9 +209,9 @@ namespace CalculatorTests
         public void BasicTest()
         {
             Assert.AreEqual(6, Calculator.Factorial(3));
+            Assert.AreEqual(120, Calculator.Factorial(5));
             Assert.AreEqual(1, Calculator.Factorial(1));
-            Assert.AreEqual(1, Calculator.Factorial(0));
-            Assert.AreEqual(-1, Calculator.Factorial(-5));
+            
         }
 
         /// <summary>
@@ -205,7 +229,7 @@ namespace CalculatorTests
         [TestMethod]
         public void NegativeTest()
         {
-            Assert.AreEqual(-1, Calculator.Factorial(-5));
+            Assert.AreEqual(-1,Calculator.Factorial(-5));
         }
     }
 }
