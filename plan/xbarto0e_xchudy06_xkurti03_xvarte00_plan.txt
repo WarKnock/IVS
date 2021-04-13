@@ -1,0 +1,24 @@
+GUI - 31. 3. - xvarte00, dohlíží xbarto0e
+Testy knihovny - 10. 4. - xchudy06, xkurti03, dohlíží všichni
+Matemická knihovna - 10. 4. - xbarto0e, dohlíží xvarte00
+	Základní operace - 5. 4.
+	Pokročilé operace - 10. 4.
+	Vlastní funkce - x. 4.
+Profiling - 17. 4. - xvarte00, dohlíží xbarto0e
+Integrace - 17. 4. - xchudy06, dohlíží xkurti03
+	Základ
+	Ovládání klavesnicí
+Instalátor - 20. 4. - xkurti03
+Makefile - 20. 4. - xvarte00
+Testy celku - 23. 4. - xchudy06
+Mockup - 25. 4. - xbarto0e
+Dokumentace - 25. 4. - xkurti03
+Zhodnocení projektu - 29. 4.
+
+Rozdělení úkolů jednotlivým řešitelům je pouze orientační
+
+Pro komunikaci jsme zvolili Discord. Pravidelně pořádáme meetingy, časy domlouváme dopředu, většinou o víkendech, kdy mají všichni zúčastnění čas. Vytváříme oddělené místnosti pro jednotlivé části vývoje, důležité věci dáváme do pinnů v jednotlivých místnostech (viz přiložený obrázek).
+
+Jako systém pro správu verzí používáme Git.
+Hosting: https://github.com/WarKnock/IVS
+Uživatele ivskontrola jsme pozvali pro nahlížení do repozitáře
