@@ -4,34 +4,36 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:turbocalc"
+        KeyDown="Key_press"
         mc:Ignorable="d"
         Title="Calc" Height="350" Width="300">
-    <Grid x:Name="Numbers_Grid" Margin="0,0,0,-6" Background="#FFDADADA">
+    <Grid x:Name="Numbers_Grid" Margin="0,0,0,-6" Background="#FFDADADA" HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="107*"/>
             <RowDefinition Height="230*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="Button_6" Content="6" HorizontalAlignment="Left" Height="47" Margin="109,73,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36" Grid.Row="2" Background="#FFA0A0A0" BorderBrush="#FF515151"/>
-        <Button x:Name="Button_5" Content="5" HorizontalAlignment="Left" Height="47" Margin="57,73,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36" Grid.Row="2" BorderBrush="#FF515151" Background="#FFA0A0A0"/>
-        <Button x:Name="Button_4" Content="4" HorizontalAlignment="Left" Height="47" Margin="5,73,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36" Grid.Row="2" BorderBrush="#FF515151" Background="#FFA0A0A0"/>
-        <Button x:Name="Button_7" Content="7" HorizontalAlignment="Left" Height="47" Margin="5,21,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36" Grid.Row="2" BorderBrush="#FF515151" Background="#FFA0A0A0"/>
-        <Button x:Name="Button_8" Content="8" HorizontalAlignment="Left" Height="47" Margin="57,21,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36" Grid.Row="2" BorderBrush="#FF515151" Background="#FFA0A0A0"/>
-        <Button x:Name="Button_9" Content="9" HorizontalAlignment="Left" Height="47" Margin="109,21,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36" Grid.Row="2" BorderBrush="#FF515151" Background="#FFA0A0A0"/>
-        <Button x:Name="Button_1" Content="1" HorizontalAlignment="Left" Height="47" Margin="5,125,0,0" VerticalAlignment="Top" Width="47" Click="Button_Click_1" FontFamily="Arial" FontSize="36" FontWeight="Normal" Grid.Row="2" Background="#FFA0A0A0" BorderBrush="#FF515151"/>
-        <Button x:Name="Button_2" Content="2" HorizontalAlignment="Left" Height="47" Margin="57,125,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36" Grid.Row="2" Background="#FFA0A0A0" BorderBrush="#FF515151"/>
-        <Button x:Name="Button_3" Content="3" HorizontalAlignment="Left" Height="47" Margin="109,125,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36" Grid.Row="2" BorderBrush="#FF515151" Background="#FFA0A0A0"/>
-        <Button x:Name="Button_0" Content="0&#xD;&#xA;" HorizontalAlignment="Left" Height="47" Margin="5,177,0,0" VerticalAlignment="Top" Width="47" Click="Button_Click" FontSize="36" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" Grid.Row="2" Background="#FFA0A0A0" BorderBrush="#FF515151"/>
-        <Button x:Name="Button_0_Copy" Content="CLEAR" HorizontalAlignment="Left" Height="47" Margin="57,177,0,0" VerticalAlignment="Top" Width="99" Click="Button_Click" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" Grid.Row="2" FontSize="20" Background="#FFA0A0A0" BorderBrush="#FF515151"/>
-        <TextBlock HorizontalAlignment="Center" Height="42" Margin="0,7,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" Background="#FFC7C7C7" Opacity="0.7" Foreground="Black" FontSize="11" Grid.Row="1"/>
-        <Button Content="÷" HorizontalAlignment="Left" Height="48" Margin="161,21,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24" Click="Button_Click_2" BorderBrush="#FF515151"/>
-        <Button Content="×" HorizontalAlignment="Left" Height="48" Margin="229,21,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24" BorderBrush="#FF515151"/>
-        <Button Content="√" HorizontalAlignment="Left" Height="48" Margin="161,73,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" Click="Button_Click_3" FontFamily="Arial" FontSize="24" BorderBrush="#FF515151"/>
-        <Button Content="xⁿ" HorizontalAlignment="Left" Height="48" Margin="229,72,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24" Click="Button_Click_4" BorderBrush="#FF515151"/>
-        <Button Content="-" HorizontalAlignment="Left" Height="48" Margin="229,124,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24" BorderBrush="#FF515151"/>
-        <Button Content="+" HorizontalAlignment="Left" Height="48" Margin="161,124,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24" BorderBrush="#FF515151"/>
-        <Button Content="." HorizontalAlignment="Left" Height="48" Margin="161,177,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24" BorderBrush="#FF515151"/>
-        <Button Content="x!" HorizontalAlignment="Left" Height="48" Margin="229,177,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24" BorderBrush="#FF515151"/>
+        <Button x:Name="Button_6" Content="_6" HorizontalAlignment="Left" Height="47" Margin="109,73,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36" Grid.Row="2" Background="#FFA0A0A0" BorderBrush="#FF515151" Click="Button_6_Click"/>
+        <Button x:Name="Button_5" Content="_5" HorizontalAlignment="Left" Height="47" Margin="57,73,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36" Grid.Row="2" BorderBrush="#FF515151" Background="#FFA0A0A0" Click="Button_5_Click"/>
+        <Button x:Name="Button_4" Content="_4" HorizontalAlignment="Left" Height="47" Margin="5,73,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36" Grid.Row="2" BorderBrush="#FF515151" Background="#FFA0A0A0" Click="Button_4_Click"/>
+        <Button x:Name="Button_7" Content="_7" HorizontalAlignment="Left" Height="47" Margin="5,21,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36" Grid.Row="2" BorderBrush="#FF515151" Background="#FFA0A0A0" Click="Button_7_Click"/>
+        <Button x:Name="Button_8" Content="_8" HorizontalAlignment="Left" Height="47" Margin="57,21,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36" Grid.Row="2" BorderBrush="#FF515151" Background="#FFA0A0A0" Click="Button_8_Click"/>
+        <Button x:Name="Button_9" Content="_9" HorizontalAlignment="Left" Height="47" Margin="109,21,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36" Grid.Row="2" BorderBrush="#FF515151" Background="#FFA0A0A0" Click="Button_9_Click"/>
+        <Button x:Name="Button_1" Content="_1" HorizontalAlignment="Left" Height="47" Margin="5,125,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36"  Grid.Row="2" BorderBrush="#FF515151" Background="#FFA0A0A0" Click="Button_1_Click"/>
+        <Button x:Name="Button_2" Content="_2" HorizontalAlignment="Left" Height="47" Margin="57,125,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36" Grid.Row="2" BorderBrush="#FF515151" Background="#FFA0A0A0" Click="Button_2_Click"/>
+        <Button x:Name="Button_3" Content="_3" HorizontalAlignment="Left" Height="47" Margin="109,125,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36" Grid.Row="2" BorderBrush="#FF515151" Background="#FFA0A0A0" Click="Button_3_Click"/>
+        <Button x:Name="Button_0" Content="_0" HorizontalAlignment="Left" Height="47" Margin="5,177,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36" Grid.Row="2" BorderBrush="#FF515151" Background="#FFA0A0A0" Click="Button_0_Click"/>
+        <Button x:Name="Button_Clear" Content="_CLEAR" HorizontalAlignment="Left" Height="47" Margin="57,177,0,0" VerticalAlignment="Top" Width="99" FontFamily="Arial" Grid.Row="2" FontSize="20" Background="#FFA0A0A0" BorderBrush="#FF515151" Click="Clear_Click"/>
+        <TextBlock Name="display" TextAlignment="Right" HorizontalAlignment="Center" Height="42" Margin="0,7,0,0" Padding="5,0,5,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" Background="#FFC7C7C7" Opacity="0.7" Foreground="Black" FontSize="36" Grid.Row="1" Text="" FontFamily="Arial"/>
+        <Button Content="÷" HorizontalAlignment="Left" Height="48" Margin="161,21,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24" Click="Button_divide_Click" BorderBrush="#FF515151"/>
+        <Button Content="×" HorizontalAlignment="Left" Height="48" Margin="229,21,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24" BorderBrush="#FF515151" Click="Button_multiply_Click" AutomationProperties.AcceleratorKey="*"/>
+        <Button Content="√" HorizontalAlignment="Left" Height="48" Margin="161,73,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24" BorderBrush="#FF515151" Click="Button_root_Click"/>
+        <Button Content="xⁿ" HorizontalAlignment="Left" Height="48" Margin="229,72,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24" BorderBrush="#FF515151" Click="Button_power_Click"/>
+        <Button Content="_-" HorizontalAlignment="Left" Height="48" Margin="229,124,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24" BorderBrush="#FF515151" Click="Button_minus_Click"/>
+        <Button Content="_+" HorizontalAlignment="Left" Height="48" Margin="161,124,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24" BorderBrush="#FF515151" Click="Button_plus_Click"/>
+        <Button Content="_." HorizontalAlignment="Left" Height="48" Margin="161,177,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24" BorderBrush="#FF515151" Click="Button_point_Click"/>
+        <Button Content="x!" HorizontalAlignment="Left" Height="48" Margin="229,177,0,0" Grid.Row="2" VerticalAlignment="Top" Width="63" Background="#FFA0A0A0" FontFamily="Arial" FontSize="24" BorderBrush="#FF515151" Click="Button_factorial_Click"/>
+        <Border BorderThickness="1" HorizontalAlignment="Center" Height="215" Margin="10,10,10,10" Grid.Row="2" VerticalAlignment="Center" Width="300" Padding="10,10,10,10"/>
     </Grid>
 
 </Window>
