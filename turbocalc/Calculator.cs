@@ -58,7 +58,10 @@ namespace turbocalc
         /// </summary>
         /// <param name="x">Base</param>
         /// <param name="n">Exponent</param>
-        /// <returns>double x^n</returns>
+        /// <returns>
+        ///     double x^n
+        ///     Throws an exception if exponent is negative and base is 0
+        /// </returns>
         public static double Power(double x, int n)
         {
             decimal sum = 1;
@@ -67,6 +70,10 @@ namespace turbocalc
                 return 1;
             else if (n < 0)
                 negative = true;
+            //Division by zero
+            else if (x == 0 && n < 0)
+                throw new ArgumentException("Can't do 0^-n -> Division by zero.");
+
             for (int i = 0; i < (negative ? -n : n); i++)
                 sum *= (decimal)x;
             return negative ? (double)(1/sum) : (double)sum;
@@ -79,21 +86,15 @@ namespace turbocalc
         /// <param name="n">Exponent</param>
         /// <returns>  
         ///     double root num^(1/n),
-        ///     Returns -1 if 'n'-th root of number 'x' is not defined
+        ///     Throws an exception if root of number 'x' is not defined
         /// </returns>
         public static double Root(double x, int n)
         {
-            if (x == 0)
-            {
-                if (n < 0) //Division by zero
-                {
-                    throw new ArgumentException("Can't do 0^-n -> Division by zero.");
-                }
-                else
-                {
-                    return 0;
-                }
-            }
+            //Division by zero
+            if (x == 0 && n < 0)
+                throw new ArgumentException("Can't do 0^-n -> Division by zero.");
+            else if (x == 0)
+                return 0;
 
             bool negative = false;
             //Negative number and odd-order root
@@ -109,7 +110,6 @@ namespace turbocalc
             else
                 return negative ? -(Math.Pow(-x, 1.0 / n)) : (Math.Pow(x, 1.0 / n));
         }
-
 
         /// <summary>
         /// Makes factorial of a number 'x'
@@ -134,6 +134,35 @@ namespace turbocalc
                     sum *= i;
                 return sum;
             }
+        }
+
+        /// <summary>
+        /// Modulo of the two numbers
+        /// </summary>
+        /// <param name="a">First number</param>
+        /// <param name="b">Second number</param>
+        /// <returns>
+        ///     double a % b
+        ///     Throws an exception if dividing by 0
+        /// </returns>
+        public static double Mod(double a, double b)
+        {
+            if (b == 0)
+                throw new ArgumentException("Division by zero.");
+            return (double)((decimal)a % (decimal)b);
+        }
+
+        /// <summary>
+        /// Absolute of the number
+        /// </summary>
+        /// <param name="x">Number</param>
+        /// <returns>double |x|</returns>
+        public static double Abs(double x)
+        {
+            if (x < 0)
+                return -x;
+            else
+                return x;
         }
     }
 }
