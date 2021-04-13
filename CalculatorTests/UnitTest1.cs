@@ -233,4 +233,51 @@ namespace CalculatorTests
             Assert.AreEqual(-1,Calculator.Factorial(-5));
         }
     }
+
+    [TestClass]
+    public class Mod
+    {
+        /// <summary>
+        /// Testing modulo function of two integers
+        /// </summary>
+        [TestMethod]
+        public void BasicTest()
+        {
+            Assert.AreNotEqual(1, Calculator.Mod(2, 2));
+            Assert.AreEqual(2, Calculator.Mod(2, 3));
+            Assert.AreEqual(0, Calculator.Mod(3,3));
+            Assert.AreEqual(1, Calculator.Mod(10,3));
+            Assert.AreEqual(1, Calculator.Mod(10,-3));
+            Assert.AreEqual(-1, Calculator.Mod(-10, -3));
+            Assert.AreEqual(-1, Calculator.Mod(-10, 3));
+            Assert.ThrowsException<ArgumentException>(() => Calculator.Mod(1, 0));
+        }
+    }
+
+
+    [TestClass]
+    public class Abs
+    {
+        /// <summary>
+        /// Testing absolute value of an integer
+        /// </summary>
+        [TestMethod]
+        public void BasicTest()
+        {
+            Assert.AreNotEqual(-100, Calculator.Abs(100));
+            Assert.AreEqual(100, Calculator.Abs(100));
+            Assert.AreEqual(100, Calculator.Abs(-100));
+        }
+
+        /// <summary>
+        /// Testing absolute value of a double
+        /// </summary>
+        [TestMethod]
+        public void DoubleTest()
+        {
+            Assert.AreNotEqual(-100.99, Calculator.Abs(100.99));
+            Assert.AreEqual(100.98, Calculator.Abs(100.98));
+            Assert.AreEqual(100.59, Calculator.Abs(-100.59));
+        }
+    }
 }
