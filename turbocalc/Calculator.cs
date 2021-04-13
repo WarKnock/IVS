@@ -37,6 +37,8 @@ namespace turbocalc
         /// <returns>double a / b</returns>
         public static double Divide(double a, double b)
         {
+            if(b == 0)
+                throw new ArgumentException("Division by zero.");
             return (double)((decimal)a / (decimal)b);
         }
 
@@ -82,7 +84,16 @@ namespace turbocalc
         public static double Root(double x, int n)
         {
             if (x == 0)
-                return 0;
+            {
+                if (n < 0) //Division by zero
+                {
+                    throw new ArgumentException("Can't do 0^-n -> Division by zero.");
+                }
+                else
+                {
+                    return 0;
+                }
+            }
 
             bool negative = false;
             //Negative number and odd-order root
@@ -90,11 +101,11 @@ namespace turbocalc
                 negative = true;
             //Even-order root of negative number is not defined
             else if (x < 0 && n % 2 == 0)
-                return -1;
+                throw new ArgumentException("Even-order root of negative number is not defined.");
 
             //If root is 0
             if (n == 0)
-                return - 1;
+                throw new ArgumentException("Can't do zero root of something.");
             else
                 return negative ? -(Math.Pow(-x, 1.0 / n)) : (Math.Pow(x, 1.0 / n));
         }

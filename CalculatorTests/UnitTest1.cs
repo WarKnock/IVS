@@ -1,3 +1,4 @@
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using turbocalc;
@@ -130,7 +131,7 @@ namespace CalculatorTests
             Assert.AreNotEqual(1, Calculator.Divide(1.6, 2.3));
             Assert.AreEqual(-4.75, Calculator.Divide(-5.7, 1.2));
             Assert.AreEqual(1, Calculator.Divide(-1.0, -1.0));
-            //Assert.ThrowsException<ArgumentException>(Calculator.Divide(1.0,0.0));
+            Assert.ThrowsException<ArgumentException>(() => Calculator.Divide(1.0,0.0));
         }
     }
 
@@ -179,10 +180,11 @@ namespace CalculatorTests
             Assert.AreEqual(2, Calculator.Root(4,2));
             Assert.AreEqual(2, Calculator.Root(8,3));
             Assert.AreEqual(0, Calculator.Root(0,2));
-            //Assert.ThrowsException <ArgumentException> (Calculator.Root(-1,2));
-            //Assert.ThrowsException<ArgumentException>(Calculator.Root(2,0));
+            Assert.ThrowsException <ArgumentException> (() => Calculator.Root(-1,2));
+            Assert.ThrowsException<ArgumentException>(() => Calculator.Root(2,0));
             Assert.AreEqual(0.5,Calculator.Root(4,-2));
-            Assert.AreEqual(-1,Calculator.Root(-1,3));  
+            Assert.AreEqual(-1,Calculator.Root(-1,3));
+            Assert.ThrowsException<ArgumentException>(() => Calculator.Root(0, -1));
         }
 
         /// <summary>
