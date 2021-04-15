@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Text;
@@ -21,10 +22,10 @@ namespace turbocalc
     /// </summary>
     public partial class Calc : Window
     {
-        private string[] number = new string[100]; // Array of strings for number
-        private int counter = 0; // Counter for characters in number
-        private int count = 0; // Count of characters in textBlock
-        private int bracketLevel = 30; // 30 to start somewhere in the middle(can go up or down)
+        private string[] _number = new string[100]; // Array of strings for number
+        private int _counter = 0; // Counter for characters in number
+        private int _count = 0; // Count of characters in textBlock
+        private int _bracketLevel = 30; // 30 to start somewhere in the middle(can go up or down)
         
         /// <summary>
         /// Structure containing data - number or operators of calculation
@@ -36,7 +37,7 @@ namespace turbocalc
            /// </summary>
            /// <param name="number">double number</param>
            /// <param name="operation">name of operator(plus, minus,...)</param>
-           /// <param name="weigth">weight of operator, higher number means higher priority</param>
+           /// <param name="weight">weight of operator, higher number means higher priority</param>
            /// <param name="bracketLevel">bracket level of operator, higher number means higher priority(even if operator has higher weight)</param>
             public Data(double number = 0, string operation = "", int weight = 0, int bracketLevel = 0)
             {
@@ -55,10 +56,10 @@ namespace turbocalc
         /// <summary>
         /// Doubly linked list containing data structures.
         /// </summary>
-        public LinkedList<Data> dataList = new LinkedList<Data>();
-        private LinkedListNode<Data> head; /// Head of dataList
+        public LinkedList<Data> DataList = new LinkedList<Data>();
+        private LinkedListNode<Data> _head; /// Head of dataList
 
-        private bool first = true; // Determines first insertion into list
+        private bool _first = true; // Determines first insertion into list
 
 
         public Calc()
@@ -69,16 +70,16 @@ namespace turbocalc
         /// <summary>
         /// Erases the most left character in textBlock to make a space for new character.
         /// </summary>
-        private void fitInBox()
+        private void FitInBox()
         {
-            if (count < 12) count++; // textBlock is not full yet
+            if (_count < 12) _count++; // textBlock is not full yet
             else // too much content in textBlock
             {
                 string text = display.Text; // Temp string
                 display.Text = text[1].ToString();
-                for (int i = 2; i < count; i++) // moving chars to new position
+                for (int i = 2; i < _count; i++) // moving chars to new position
                 {
-                    display.Text = display.Text + text[i].ToString();
+                    display.Text += text[i].ToString();
                 }
             }
         }
@@ -88,7 +89,7 @@ namespace turbocalc
         /// </summary>
         /// <param name="counter"> counter of letters in number</param>
         /// <param name="number"> string for number </param>
-        void resetCounter(ref int counter, ref string[] number)
+        private static void ResetCounter(ref int counter, ref string[] number)
         {
             for (int i = 0; i < counter; i++)
             {
@@ -105,11 +106,11 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_0_Click(object sender, RoutedEventArgs e)
         {
-            if ((counter == 1) && (number[0] == "0")) return; // Prevents numbers like 000000001
-            fitInBox();
+            if ((_counter == 1) && (_number[0] == "0")) return; // Prevents numbers like 000000001
+            FitInBox();
             display.Text = display.Text + "0";
-            number[counter] = "0";
-            counter++;
+            _number[_counter] = "0";
+            _counter++;
         }
 
         /// <summary>
@@ -119,11 +120,11 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_1_Click(object sender, RoutedEventArgs e)
         {
-            if ((counter == 1) && (number[0] == "0")) counter--; // Prevents numbers like 000000001
-            fitInBox();
+            if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
+            FitInBox();
             display.Text = display.Text + "1";
-            number[counter] = "1";
-            counter++;
+            _number[_counter] = "1";
+            _counter++;
         }
 
         /// <summary>
@@ -133,11 +134,11 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_2_Click(object sender, RoutedEventArgs e)
         {
-            if ((counter == 1) && (number[0] == "0")) counter--; // Prevents numbers like 000000001
-            fitInBox();
+            if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
+            FitInBox();
             display.Text = display.Text + "2";
-            number[counter] = "2";
-            counter++;
+            _number[_counter] = "2";
+            _counter++;
         }
 
         /// <summary>
@@ -147,11 +148,11 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_3_Click(object sender, RoutedEventArgs e)
         {
-            if ((counter == 1) && (number[0] == "0")) counter--; // Prevents numbers like 000000001
-            fitInBox();
+            if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
+            FitInBox();
             display.Text = display.Text + "3";
-            number[counter] = "3";
-            counter++;
+            _number[_counter] = "3";
+            _counter++;
         }
 
         /// <summary>
@@ -161,11 +162,11 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_4_Click(object sender, RoutedEventArgs e)
         {
-            if ((counter == 1) && (number[0] == "0")) counter--; // Prevents numbers like 000000001
-            fitInBox();
+            if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
+            FitInBox();
             display.Text = display.Text + "4";
-            number[counter] = "4";
-            counter++;
+            _number[_counter] = "4";
+            _counter++;
         }
 
         /// <summary>
@@ -175,11 +176,11 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_5_Click(object sender, RoutedEventArgs e)
         {
-            if ((counter == 1) && (number[0] == "0")) counter--; // Prevents numbers like 000000001
-            fitInBox();
+            if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
+            FitInBox();
             display.Text = display.Text + "5";
-            number[counter] = "5";
-            counter++;
+            _number[_counter] = "5";
+            _counter++;
         }
 
         /// <summary>
@@ -189,11 +190,11 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_6_Click(object sender, RoutedEventArgs e)
         {
-            if ((counter == 1) && (number[0] == "0")) counter--; // Prevents numbers like 000000001
-            fitInBox();
+            if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
+            FitInBox();
             display.Text = display.Text + "6";
-            number[counter] = "6";
-            counter++;
+            _number[_counter] = "6";
+            _counter++;
         }
 
         /// <summary>
@@ -203,11 +204,11 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_7_Click(object sender, RoutedEventArgs e)
         {
-            if ((counter == 1) && (number[0] == "0")) counter--; // Prevents numbers like 000000001
-            fitInBox();
+            if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
+            FitInBox();
             display.Text = display.Text + "7";
-            number[counter] = "7";
-            counter++;
+            _number[_counter] = "7";
+            _counter++;
         }
 
         /// <summary>
@@ -217,11 +218,11 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_8_Click(object sender, RoutedEventArgs e)
         {
-            if ((counter == 1) && (number[0] == "0")) counter--; // Prevents numbers like 000000001
-            fitInBox();
+            if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
+            FitInBox();
             display.Text = display.Text + "8";
-            number[counter] = "8";
-            counter++;
+            _number[_counter] = "8";
+            _counter++;
         }
 
         /// <summary>
@@ -231,11 +232,11 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_9_Click(object sender, RoutedEventArgs e)
         {
-            if ((counter == 1) && (number[0] == "0")) counter--; // Prevents numbers like 000000001
-            fitInBox();
+            if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
+            FitInBox();
             display.Text = display.Text + "9";
-            number[counter] = "9";
-            counter++;
+            _number[_counter] = "9";
+            _counter++;
         }
 
         /// <summary>
@@ -245,18 +246,18 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
-            count = 0;
+            _count = 0;
             display.Text = "";
-            if (dataList.First != null) // Avoids error from deleting null
+            if (DataList.First != null) // Avoids error from deleting null
             {
-                while (dataList.Last != head) // Deletes dataList
+                while (DataList.Last != _head) // Deletes dataList
                 {
-                    dataList.Remove(dataList.Last);
+                    DataList.Remove(DataList.Last);
                 }
-                dataList.Remove(dataList.Last);
+                DataList.Remove(DataList.Last);
             }
-            resetCounter(ref counter, ref  number); // Resets counter
-            first = true;  // Next number will be first in dataList(which is empty)
+            ResetCounter(ref _counter, ref  _number); // Resets counter
+            _first = true;  // Next number will be first in dataList(which is empty)
         }
 
         /// <summary>
@@ -266,12 +267,12 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_point_Click(object sender, RoutedEventArgs e)
         {
-            if (counter > 0)
+            if (_counter > 0)
             {
-                fitInBox();
-                display.Text = display.Text + ",";
-                number[counter] = ",";
-                counter++;
+                FitInBox();
+                display.Text = display.Text + ".";
+                _number[_counter] = ",";
+                _counter++;
             }
         }
 
@@ -282,22 +283,20 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_plus_Click(object sender, RoutedEventArgs e)
         {
-            if (number[0] != null) // Checks if number was entered
+            if (_number[0] == null) return;
+            FitInBox();
+            display.Text = display.Text + "+";
+            if (_first) // Adds head to list
             {
-                fitInBox();
-                display.Text = display.Text + "+";
-                if (first) // Adds head to list
-                {
-                    head = dataList.AddFirst(new Data(Convert.ToDouble(string.Concat(number))));
-                    first = false;
-                }
-                else // Adds number to last position in list
-                {
-                    dataList.AddLast(new Data(Convert.ToDouble(string.Concat(number))));
-                }
-                dataList.AddLast(new Data(0, "plus", 1, bracketLevel)); // Adds operation
-                resetCounter(ref counter, ref number);
+                _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
+                _first = false;
             }
+            else // Adds number to last position in list
+            {
+                DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number))));
+            }
+            DataList.AddLast(new Data(0, "plus", 1, _bracketLevel)); // Adds operation
+            ResetCounter(ref _counter, ref _number);
         }
 
         /// <summary>
@@ -307,22 +306,20 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_minus_Click(object sender, RoutedEventArgs e)
         {
-            if (number[0] != null) // Checks if number was entered
+            if (_number[0] == null) return;
+            FitInBox();
+            display.Text = display.Text + "-";
+            if (_first) // Adds head to list
             {
-                fitInBox();
-                display.Text = display.Text + "-";
-                if (first) // Adds head to list
-                {
-                    head = dataList.AddFirst(new Data(Convert.ToDouble(string.Concat(number))));
-                    first = false;
-                }
-                else // Adds number to last position in list
-                {
-                    dataList.AddLast(new Data(Convert.ToDouble(string.Concat(number))));
-                }
-                dataList.AddLast(new Data(0, "minus", 1, bracketLevel)); // Adds operation
-                resetCounter(ref counter, ref number);
+                _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
+                _first = false;
             }
+            else // Adds number to last position in list
+            {
+                DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number))));
+            }
+            DataList.AddLast(new Data(0, "minus", 1, _bracketLevel)); // Adds operation
+            ResetCounter(ref _counter, ref _number);
         }
 
         /// <summary>
@@ -332,22 +329,20 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_divide_Click(object sender, RoutedEventArgs e)
         {
-            if (number[0] != null) // Checks if number was entered
+            if (_number[0] == null) return;
+            FitInBox();
+            display.Text = display.Text + "÷";
+            if (_first) // Adds head to list
             {
-                fitInBox();
-                display.Text = display.Text + "÷";
-                if (first) // Adds head to list
-                {
-                    head = dataList.AddFirst(new Data(Convert.ToDouble(string.Concat(number))));
-                    first = false;
-                }
-                else // Adds number to last position in list
-                {
-                    dataList.AddLast(new Data(Convert.ToDouble(string.Concat(number))));
-                }
-                dataList.AddLast(new Data(0, "divide", 2, bracketLevel)); // Adds operation
-                resetCounter(ref counter, ref number);
+                _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
+                _first = false;
             }
+            else // Adds number to last position in list
+            {
+                DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number))));
+            }
+            DataList.AddLast(new Data(0, "divide", 2, _bracketLevel)); // Adds operation
+            ResetCounter(ref _counter, ref _number);
         }
 
         /// <summary>
@@ -357,22 +352,20 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_multiply_Click(object sender, RoutedEventArgs e)
         {
-            if (number[0] != null) // Checks if number was entered
+            if (_number[0] == null) return;
+            FitInBox();
+            display.Text = display.Text + "×";
+            if (_first) // Adds head to list
             {
-                fitInBox();
-                display.Text = display.Text + "×";
-                if (first) // Adds head to list
-                {
-                    head = dataList.AddFirst(new Data(Convert.ToDouble(string.Concat(number))));
-                    first = false;
-                }
-                else // Adds number to last position in list
-                {
-                    dataList.AddLast(new Data(Convert.ToDouble(string.Concat(number))));
-                }
-                dataList.AddLast(new Data(0, "multiply", 2, bracketLevel)); // Adds operation
-                resetCounter(ref counter, ref number);
+                _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
+                _first = false;
             }
+            else // Adds number to last position in list
+            {
+                DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number))));
+            }
+            DataList.AddLast(new Data(0, "multiply", 2, _bracketLevel)); // Adds operation
+            ResetCounter(ref _counter, ref _number);
         }
 
         /// <summary>
@@ -382,22 +375,20 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_factorial_Click(object sender, RoutedEventArgs e)
         {
-            if (number[0] != null) // Checks if number was entered
+            if (_number[0] == null) return;
+            FitInBox();
+            display.Text = display.Text + "!";
+            if (_first) // Adds head to list
             {
-                fitInBox();
-                display.Text = display.Text + "!";
-                if (first) // Adds head to list
-                {
-                    head = dataList.AddFirst(new Data(Convert.ToDouble(string.Concat(number))));
-                    first = false;
-                }
-                else // Adds number to last position in list
-                {
-                    dataList.AddLast(new Data(Convert.ToDouble(string.Concat(number))));
-                }
-                dataList.AddLast(new Data(0, "factorial", 5, bracketLevel)); // Adds operation
-                resetCounter(ref counter, ref number);
+                _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
+                _first = false;
             }
+            else // Adds number to last position in list
+            {
+                DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number))));
+            }
+            DataList.AddLast(new Data(0, "factorial", 5, _bracketLevel)); // Adds operation
+            ResetCounter(ref _counter, ref _number);
         }
 
         /// <summary>
@@ -407,22 +398,20 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_root_Click(object sender, RoutedEventArgs e)
         {
-            if (number[0] != null) // Checks if number was entered
+            if (_number[0] == null) return;
+            FitInBox();
+            display.Text = display.Text + "√";
+            if (_first) // Adds head to list
             {
-                fitInBox();
-                display.Text = display.Text + "√";
-                if (first) // Adds head to list
-                {
-                    head = dataList.AddFirst(new Data(Convert.ToDouble(string.Concat(number))));
-                    first = false;
-                }
-                else // Adds number to last position in list
-                {
-                    dataList.AddLast(new Data(Convert.ToDouble(string.Concat(number)))); 
-                }
-                dataList.AddLast(new Data(0, "root", 3, bracketLevel)); // Adds operation
-                resetCounter(ref counter, ref number);
+                _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
+                _first = false;
             }
+            else // Adds number to last position in list
+            {
+                DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number)))); 
+            }
+            DataList.AddLast(new Data(0, "root", 3, _bracketLevel)); // Adds operation
+            ResetCounter(ref _counter, ref _number);
         }
 
         /// <summary>
@@ -432,22 +421,20 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_power_Click(object sender, RoutedEventArgs e)
         {
-            if (number[0] != null) // Checks if number was entered
+            if (_number[0] == null) return;
+            FitInBox();
+            display.Text = display.Text + "xⁿ";
+            if (_first) // Adds head to list
             {
-                fitInBox();
-                display.Text = display.Text + "xⁿ";
-                if (first) // Adds head to list
-                {
-                    head = dataList.AddFirst(new Data(Convert.ToDouble(string.Concat(number))));
-                    first = false;
-                }
-                else // Adds number to last position in list
-                {
-                    dataList.AddLast(new Data(Convert.ToDouble(string.Concat(number))));
-                }
-                dataList.AddLast(new Data(0, "power", 4, bracketLevel)); // Adds operation
-                resetCounter(ref counter, ref number);
+                _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
+                _first = false;
             }
+            else // Adds number to last position in list
+            {
+                DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number))));
+            }
+            DataList.AddLast(new Data(0, "power", 4, _bracketLevel)); // Adds operation
+            ResetCounter(ref _counter, ref _number);
         }
 
         /// <summary>
@@ -457,9 +444,9 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_leftBracket_Click(object sender, RoutedEventArgs e)
         {
-            fitInBox();
+            FitInBox();
             display.Text = display.Text + "(";
-            bracketLevel++;
+            _bracketLevel++;
         }
 
         /// <summary>
@@ -469,9 +456,9 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_rightBracket_Click(object sender, RoutedEventArgs e)
         {
-            fitInBox();
+            FitInBox();
             display.Text = display.Text + ")";
-            bracketLevel--;
+            _bracketLevel--;
         }
 
 
@@ -482,21 +469,23 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_calculate_Click(object sender, RoutedEventArgs e)
         {
-            if (number[0] != null)
+            if (_number[0] != null)
             {
-                fitInBox();
-                if (first) // Only one number entered and no operation - rewrites the number
+                FitInBox();
+                if (_first) // Only one number entered and no operation - rewrites the number
                 {
-                    display.Text = string.Concat(number);
+                    display.Text = string.Concat(_number).Replace(',', '.');
                 }
                 else // Main brain
                 {
-                    dataList.AddLast(new Data(Convert.ToDouble(string.Concat(number))));
-                    display.Text = (head.Value.Number + dataList.Last.Value.Number).ToString();
+                    DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number))));
+                    if (DataList.Last != null)
+                    {
+                        display.Text = (_head.Value.Number + DataList.Last.Value.Number).ToString(CultureInfo.InvariantCulture);
+                    }
                 }
             }
-
-            count = display.Text.Length; // How many characters are displayed
+            _count = display.Text.Length; // How many characters are displayed
         }
 
         /// <summary>
