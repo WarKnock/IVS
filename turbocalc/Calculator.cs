@@ -48,7 +48,7 @@ namespace turbocalc
         /// <param name="a">First number</param>
         /// <param name="b">Second number</param>
         /// <returns>double a * b</returns>
-        public static double Mupltiply(double a, double b)
+        public static double Multiply(double a, double b)
         {
             return (double)((decimal)a * (decimal)b);
         }

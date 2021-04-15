@@ -84,10 +84,10 @@ namespace CalculatorTests
         [TestMethod]
         public void BasicTest()
         {
-            Assert.AreEqual(6 , Calculator.Mupltiply(2,3));
-            Assert.AreNotEqual(1, Calculator.Mupltiply(1,0));
-            Assert.AreEqual(-5, Calculator.Mupltiply(-1,5));
-            Assert.AreEqual(1, Calculator.Mupltiply(-1,-1));
+            Assert.AreEqual(6 , Calculator.Multiply(2,3));
+            Assert.AreNotEqual(1, Calculator.Multiply(1,0));
+            Assert.AreEqual(-5, Calculator.Multiply(-1,5));
+            Assert.AreEqual(1, Calculator.Multiply(-1,-1));
         }
 
         /// <summary>
@@ -96,10 +96,10 @@ namespace CalculatorTests
         [TestMethod]
         public void DoubleTest()
         {
-            Assert.AreEqual(6.9, Calculator.Mupltiply(2.3, 3));
-            Assert.AreNotEqual(1, Calculator.Mupltiply(1.6, 0));
-            Assert.AreEqual(-6.84, Calculator.Mupltiply(-1.2, 5.7));
-            Assert.AreEqual(1, Calculator.Mupltiply(-1.0, -1.0));
+            Assert.AreEqual(6.9, Calculator.Multiply(2.3, 3));
+            Assert.AreNotEqual(1, Calculator.Multiply(1.6, 0));
+            Assert.AreEqual(-6.84, Calculator.Multiply(-1.2, 5.7));
+            Assert.AreEqual(1, Calculator.Multiply(-1.0, -1.0));
         }
     }
 
