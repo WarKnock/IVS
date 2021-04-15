@@ -68,10 +68,10 @@ namespace turbocalc
             bool negative = false;
             if (n == 0)
                 return 1;
-            else if (n < 0)
+            if (n < 0)
                 negative = true;
             //Division by zero
-            else if (x == 0 && n < 0)
+            if (x == 0 && n < 0)
                 throw new ArgumentException("Can't do 0^-n -> Division by zero.");
 
             for (int i = 0; i < (negative ? -n : n); i++)
@@ -137,22 +137,32 @@ namespace turbocalc
         }
 
         /// <summary>
-        /// Modulo of the two numbers
+        /// Modulo of two numbers
         /// </summary>
+        /// in C# a % b != a mod b (for negative numbers)
+        /// In Math a mod b is remainder after Euclidean division
+        /// The remainder in Euclidean division is always positive
+        /// Examples:  10 mod 3 = 1
+        ///            10 mod -3 = 1
+        ///           -10 mod 3 = 2
+        ///           -10 mod -3 = 2
         /// <param name="a">First number</param>
         /// <param name="b">Second number</param>
         /// <returns>
-        ///     double a % b
+        ///     int a mod b
         ///     Throws an exception if dividing by 0
         /// </returns>
-        public static double Mod(double a, double b)
+        public static double Mod(double a, double b) 
         {
             if (b == 0)
                 throw new ArgumentException("Division by zero.");
-            return (double)((decimal)a % (decimal)b);
+            var mod = a % b;
+            if (mod < 0)
+                mod = (b < 0) ? mod - b : mod + b;
+            return mod;
         }
 
-        /// <summary>
+        /// <summary> 
         /// Absolute of the number
         /// </summary>
         /// <param name="x">Number</param>

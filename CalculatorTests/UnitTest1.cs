@@ -152,6 +152,8 @@ namespace CalculatorTests
             Assert.AreEqual(1, Calculator.Power(7, 0));
             Assert.AreEqual(1, Calculator.Power(-7, 0));
             Assert.AreEqual(0.25, Calculator.Power(2, -2));
+            Assert.AreEqual(1, Calculator.Power(0, 0));
+            Assert.ThrowsException<ArgumentException>(() => Calculator.Power(0, -1));
         }
 
         /// <summary>
@@ -238,7 +240,7 @@ namespace CalculatorTests
     public class Mod
     {
         /// <summary>
-        /// Testing modulo function of two integers
+        /// Testing modulo function of two positive integers
         /// </summary>
         [TestMethod]
         public void BasicTest()
@@ -247,10 +249,43 @@ namespace CalculatorTests
             Assert.AreEqual(2, Calculator.Mod(2, 3));
             Assert.AreEqual(0, Calculator.Mod(3,3));
             Assert.AreEqual(1, Calculator.Mod(10,3));
-            Assert.AreEqual(1, Calculator.Mod(10,-3));
-            Assert.AreEqual(-1, Calculator.Mod(-10, -3));
-            Assert.AreEqual(-1, Calculator.Mod(-10, 3));
+            Assert.AreEqual(4, Calculator.Mod(54, 5));
+        }
+
+        /// <summary>
+        /// Testing modulo function of two negative integers
+        /// </summary>
+        [TestMethod]
+        public void TestingNegative()
+        {
+            Assert.AreEqual(1, Calculator.Mod(10, -3));
+            Assert.AreEqual(2, Calculator.Mod(-10, -3));
+            Assert.AreEqual(2, Calculator.Mod(-10, 3));
+
+            Assert.AreEqual(4, Calculator.Mod(54, -5));
+            Assert.AreEqual(1, Calculator.Mod(-54, -5));
+            Assert.AreEqual(1, Calculator.Mod(-54, 5));
+        }
+
+        /// <summary>
+        /// Testing modulo function for Throw when a mod 0
+        /// </summary>
+        [TestMethod]
+        public void TestingModByZeroThrow()
+        {
             Assert.ThrowsException<ArgumentException>(() => Calculator.Mod(1, 0));
+        }
+
+        /// <summary>
+        /// Testing modulo function of two integers resulting zero
+        /// </summary>
+        [TestMethod]
+        public void TestingResultZero()
+        {
+            Assert.AreEqual(0, Calculator.Mod(-9, 3));
+            Assert.AreEqual(0, Calculator.Mod(-9, -3));
+            Assert.AreEqual(0, Calculator.Mod(-9, -3));
+            Assert.AreEqual(0, Calculator.Mod(9, -3));
         }
     }
 
