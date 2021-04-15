@@ -108,7 +108,7 @@ namespace turbocalc
         {
             if ((_counter == 1) && (_number[0] == "0")) return; // Prevents numbers like 000000001
             FitInBox();
-            display.Text = display.Text + "0";
+            display.Text += "0";
             _number[_counter] = "0";
             _counter++;
         }
@@ -122,7 +122,7 @@ namespace turbocalc
         {
             if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
             FitInBox();
-            display.Text = display.Text + "1";
+            display.Text += "1";
             _number[_counter] = "1";
             _counter++;
         }
@@ -136,7 +136,7 @@ namespace turbocalc
         {
             if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
             FitInBox();
-            display.Text = display.Text + "2";
+            display.Text += "2";
             _number[_counter] = "2";
             _counter++;
         }
@@ -150,7 +150,7 @@ namespace turbocalc
         {
             if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
             FitInBox();
-            display.Text = display.Text + "3";
+            display.Text += "3";
             _number[_counter] = "3";
             _counter++;
         }
@@ -164,7 +164,7 @@ namespace turbocalc
         {
             if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
             FitInBox();
-            display.Text = display.Text + "4";
+            display.Text += "4";
             _number[_counter] = "4";
             _counter++;
         }
@@ -178,7 +178,7 @@ namespace turbocalc
         {
             if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
             FitInBox();
-            display.Text = display.Text + "5";
+            display.Text += "5";
             _number[_counter] = "5";
             _counter++;
         }
@@ -192,7 +192,7 @@ namespace turbocalc
         {
             if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
             FitInBox();
-            display.Text = display.Text + "6";
+            display.Text += "6";
             _number[_counter] = "6";
             _counter++;
         }
@@ -206,7 +206,7 @@ namespace turbocalc
         {
             if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
             FitInBox();
-            display.Text = display.Text + "7";
+            display.Text += "7";
             _number[_counter] = "7";
             _counter++;
         }
@@ -220,7 +220,7 @@ namespace turbocalc
         {
             if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
             FitInBox();
-            display.Text = display.Text + "8";
+            display.Text += "8";
             _number[_counter] = "8";
             _counter++;
         }
@@ -234,7 +234,7 @@ namespace turbocalc
         {
             if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
             FitInBox();
-            display.Text = display.Text + "9";
+            display.Text += "9";
             _number[_counter] = "9";
             _counter++;
         }
@@ -270,7 +270,7 @@ namespace turbocalc
             if (_counter > 0)
             {
                 FitInBox();
-                display.Text = display.Text + ".";
+                display.Text += ".";
                 _number[_counter] = ",";
                 _counter++;
             }
@@ -283,9 +283,10 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_plus_Click(object sender, RoutedEventArgs e)
         {
-            if (_number[0] == null) return;
             FitInBox();
-            display.Text = display.Text + "+";
+            ///TODO: ošetřit _number[0] == "-" a number[1] == null; u všech operací
+            if (_number[0] == null) return; ///TODO:_number[0] == null a pokud DataList.Last.Value.Operation == "factorial"; to samé jako Adds operation comment
+            display.Text += "+";
             if (_first) // Adds head to list
             {
                 _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
@@ -306,9 +307,9 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_minus_Click(object sender, RoutedEventArgs e)
         {
-            if (_number[0] == null) return;
+            if (_number[0] == null) return; ///TODO: Add minus to number -> -3, zkopírovat z button_číslo
             FitInBox();
-            display.Text = display.Text + "-";
+            display.Text += "-";
             if (_first) // Adds head to list
             {
                 _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
@@ -331,7 +332,7 @@ namespace turbocalc
         {
             if (_number[0] == null) return;
             FitInBox();
-            display.Text = display.Text + "÷";
+            display.Text += "÷";
             if (_first) // Adds head to list
             {
                 _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
@@ -354,7 +355,7 @@ namespace turbocalc
         {
             if (_number[0] == null) return;
             FitInBox();
-            display.Text = display.Text + "×";
+            display.Text += "×";
             if (_first) // Adds head to list
             {
                 _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
@@ -377,7 +378,7 @@ namespace turbocalc
         {
             if (_number[0] == null) return;
             FitInBox();
-            display.Text = display.Text + "!";
+            display.Text += "!";
             if (_first) // Adds head to list
             {
                 _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
@@ -400,7 +401,7 @@ namespace turbocalc
         {
             if (_number[0] == null) return;
             FitInBox();
-            display.Text = display.Text + "√";
+            display.Text += "√";
             if (_first) // Adds head to list
             {
                 _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
@@ -423,7 +424,7 @@ namespace turbocalc
         {
             if (_number[0] == null) return;
             FitInBox();
-            display.Text = display.Text + "xⁿ";
+            display.Text += "xⁿ";
             if (_first) // Adds head to list
             {
                 _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
@@ -445,7 +446,7 @@ namespace turbocalc
         private void Button_leftBracket_Click(object sender, RoutedEventArgs e)
         {
             FitInBox();
-            display.Text = display.Text + "(";
+            display.Text += "(";
             _bracketLevel++;
         }
 
@@ -457,7 +458,7 @@ namespace turbocalc
         private void Button_rightBracket_Click(object sender, RoutedEventArgs e)
         {
             FitInBox();
-            display.Text = display.Text + ")";
+            display.Text += ")";
             _bracketLevel--;
         }
 
@@ -478,11 +479,13 @@ namespace turbocalc
                 }
                 else // Main brain
                 {
-                    DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number))));
-                    if (DataList.Last != null)
+                    LinkedListNode<Data> _pointer = DataList.Last;
+                    while (_pointer != _head)
                     {
-                        display.Text = (_head.Value.Number + DataList.Last.Value.Number).ToString(CultureInfo.InvariantCulture);
+                        _pointer = _pointer.Previous;
+                        DataList.Remove(_pointer.Next);
                     }
+                    
                 }
             }
             _count = display.Text.Length; // How many characters are displayed
