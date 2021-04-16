@@ -277,6 +277,68 @@ namespace turbocalc
             }
         }
 
+        private void TurboFunc(string op, string opSym, int weight)
+        {
+            if (_number[0] == "-" && _number[1] == null) return;
+
+            if (_number[0] == null)
+            {
+                if (DataList.Last != null)
+                {
+                    if (DataList.Last.Value.Operation == "factorial")
+                    {
+                        FitInBox();
+                        DataList.AddLast(new Data(0, op, weight, _bracketLevel));
+                        display.Text += opSym;
+                    }
+                    else if (op == "minus")
+                    {
+                        FitInBox();
+                        display.Text += opSym;
+                        _number[_counter] = opSym;
+                        _counter++;
+                    }
+                }
+                else if (op == "minus")
+                {
+                    FitInBox();
+                    display.Text += opSym;
+                    _number[_counter] = opSym;
+                    _counter++;
+                }
+                else if (op == "abs")
+                {
+                    FitInBox();
+                    _count += 2;
+                    display.Text += opSym;
+                    if (_first)
+                    {
+                        _head = DataList.AddFirst(new Data(0, op, weight, _bracketLevel));
+                        _first = false;
+                    }
+
+                    else
+                        DataList.AddLast(new Data(0, op, weight, _bracketLevel));
+                }
+
+                return;
+            }
+            FitInBox();
+            display.Text += opSym;
+            if (_first) // Adds head to list
+            {
+                _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
+                _first = false;
+            }
+            else // Adds number to last position in list
+            {
+                DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number))));
+            }
+            DataList.AddLast(new Data(0, op, weight, _bracketLevel)); // Adds operation
+            ResetCounter(ref _counter, ref _number);
+        }
+
+
         /// <summary>
         /// Button + clicked, writes + to display, sets number to list and adds operation "plus" to list
         /// </summary>
@@ -284,23 +346,10 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_plus_Click(object sender, RoutedEventArgs e)
         {
-            FitInBox();
             ///TODO: ošetřit _number[0] == "-" a number[1] == null; u všech operací
-            if (_number[0] == null) return; ///TODO:_number[0] == null a pokud DataList.Last.Value.Operation == "factorial"; to samé jako Adds operation comment
-            display.Text += "+";
-            if (_first) // Adds head to list
-            {
-                _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
-                _first = false;
-            }
-            else // Adds number to last position in list
-            {
-                DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number))));
-            }
-            DataList.AddLast(new Data(0, "plus", 1, _bracketLevel)); // Adds operation
-            ResetCounter(ref _counter, ref _number);
+            ///TODO:_number[0] == null a pokud DataList.Last.Value.Operation == "factorial"; to samé jako Adds operation comment
+            TurboFunc("plus", "+", 1);
         }
-
         /// <summary>
         /// Button - clicked, writes - to display, sets number to list and adds operation "minus" to list
         /// </summary>
@@ -308,20 +357,8 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_minus_Click(object sender, RoutedEventArgs e)
         {
-            if (_number[0] == null) return; ///TODO: Add minus to number -> -3, zkopírovat z button_číslo
-            FitInBox();
-            display.Text += "-";
-            if (_first) // Adds head to list
-            {
-                _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
-                _first = false;
-            }
-            else // Adds number to last position in list
-            {
-                DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number))));
-            }
-            DataList.AddLast(new Data(0, "minus", 1, _bracketLevel)); // Adds operation
-            ResetCounter(ref _counter, ref _number);
+            if (_number[0] == "-" && _number[1] == null) return;
+            TurboFunc("minus", "-", 1);
         }
 
         /// <summary>
@@ -331,20 +368,7 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_divide_Click(object sender, RoutedEventArgs e)
         {
-            if (_number[0] == null) return;
-            FitInBox();
-            display.Text += "÷";
-            if (_first) // Adds head to list
-            {
-                _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
-                _first = false;
-            }
-            else // Adds number to last position in list
-            {
-                DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number))));
-            }
-            DataList.AddLast(new Data(0, "divide", 2, _bracketLevel)); // Adds operation
-            ResetCounter(ref _counter, ref _number);
+            TurboFunc("divide", "÷", 2);
         }
 
         /// <summary>
@@ -354,20 +378,7 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_multiply_Click(object sender, RoutedEventArgs e)
         {
-            if (_number[0] == null) return;
-            FitInBox();
-            display.Text += "×";
-            if (_first) // Adds head to list
-            {
-                _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
-                _first = false;
-            }
-            else // Adds number to last position in list
-            {
-                DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number))));
-            }
-            DataList.AddLast(new Data(0, "multiply", 2, _bracketLevel)); // Adds operation
-            ResetCounter(ref _counter, ref _number);
+            TurboFunc("multiply", "x", 2);
         }
 
         /// <summary>
@@ -377,20 +388,7 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_factorial_Click(object sender, RoutedEventArgs e)
         {
-            if (_number[0] == null) return;
-            FitInBox();
-            display.Text += "!";
-            if (_first) // Adds head to list
-            {
-                _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
-                _first = false;
-            }
-            else // Adds number to last position in list
-            {
-                DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number))));
-            }
-            DataList.AddLast(new Data(0, "factorial", 5, _bracketLevel)); // Adds operation
-            ResetCounter(ref _counter, ref _number);
+            TurboFunc("factorial", "!", 5);
         }
 
         /// <summary>
@@ -400,20 +398,7 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_root_Click(object sender, RoutedEventArgs e)
         {
-            if (_number[0] == null) return;
-            FitInBox();
-            display.Text += "√";
-            if (_first) // Adds head to list
-            {
-                _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
-                _first = false;
-            }
-            else // Adds number to last position in list
-            {
-                DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number)))); 
-            }
-            DataList.AddLast(new Data(0, "root", 3, _bracketLevel)); // Adds operation
-            ResetCounter(ref _counter, ref _number);
+            TurboFunc("root", "√", 3);
         }
 
         /// <summary>
@@ -423,22 +408,30 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_power_Click(object sender, RoutedEventArgs e)
         {
-            if (_number[0] == null) return;
-            FitInBox();
-            display.Text += "xⁿ";
-            if (_first) // Adds head to list
-            {
-                _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
-                _first = false;
-            }
-            else // Adds number to last position in list
-            {
-                DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number))));
-            }
-            DataList.AddLast(new Data(0, "power", 4, _bracketLevel)); // Adds operation
-            ResetCounter(ref _counter, ref _number);
+            TurboFunc("power", "xⁿ", 4);
+
         }
 
+        /// <summary>
+        /// Button abs clicked, writes "abs" to display, sets number to list and adds operation "abs" to list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_abs_Click(object sender, RoutedEventArgs e)
+        {
+            TurboFunc("abs", "abs", 5);
+
+        }
+
+        /// <summary>
+        /// Button abs clicked, writes "mod" to display, sets number to list and adds operation "mod" to list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_mod_Click(object sender, RoutedEventArgs e)
+        {
+            TurboFunc("mod", "%", 2);
+        }
         /// <summary>
         /// Button ( clicked, highers bracketLevel and writes ( to display
         /// </summary>
