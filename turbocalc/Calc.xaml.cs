@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.ExceptionServices;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -479,16 +480,114 @@ namespace turbocalc
                 }
                 else // Main brain
                 {
+                    DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number)))); // Adds last number to list
                     LinkedListNode<Data> _pointer = DataList.Last;
-                    while (_pointer != _head)
+                    LinkedListNode<Data> _max; // Max priority operation
+                    while (DataList.Last != _head) // While list isn't only one node
                     {
-                        _pointer = _pointer.Previous;
-                        DataList.Remove(_pointer.Next);
+                        _max = DataList.First.Next; // Second node == first operator
+                        _pointer = DataList.First;
+                        while (_pointer != DataList.Last) // Searching for max priority operator
+                        {
+                            if (_pointer.Value.Operation != "")
+                            {
+                                
+                                if (_max.Value.BracketLevel <= _pointer.Value.BracketLevel)
+                                {
+                                    if (_max.Value.Weight < _pointer.Value.Weight)
+                                    {
+                                        _max = _pointer;
+                                    }
+                                }
+                                
+                            }
+
+                            _pointer = _pointer.Next;
+                        }
+                        double a, b = 0;
+                        a = _max.Previous.Value.Number;
+                        if (_max.Value.Operation != "factorial") // Factorial only takes one number
+                        {
+                            b = _max.Next.Value.Number;
+                        }
+                        switch (_max.Value.Operation) // Decides what to do
+                        {
+                            case "plus":
+                                DataList.AddBefore(_max.Previous, new Data(Calculator.Add(a,b))); // Adds new node with result
+                                DataList.Remove(_max.Next); // Removes redundant node
+                                break;
+                            case "minus":
+                                DataList.AddBefore(_max.Previous, new Data(Calculator.Subtract(a, b))); // Adds new node with result
+                                DataList.Remove(_max.Next); // Removes redundant node
+                                break;
+                            case "divide":
+                                DataList.AddBefore(_max.Previous, new Data(Calculator.Divide(a, b))); // Adds new node with result
+                                DataList.Remove(_max.Next); // Removes redundant node
+                                break;
+                            case "multiply":
+                                DataList.AddBefore(_max.Previous, new Data(Calculator.Multiply(a, b))); // Adds new node with result
+                                DataList.Remove(_max.Next); // Removes redundant node
+                                break;
+                            case "power":
+                                DataList.AddBefore(_max.Previous, new Data(Calculator.Power(a, (int)b))); // Adds new node with result
+                                DataList.Remove(_max.Next); // Removes redundant node
+                                break;
+                            case "root":
+                                DataList.AddBefore(_max.Previous, new Data(Calculator.Root(b, (int)a))); // Adds new node with result
+                                DataList.Remove(_max.Next); // Removes redundant node
+                                break;
+                            case "factorial":
+                                DataList.AddBefore(_max.Previous, new Data(Calculator.Factorial((int)a))); // Adds new node with result
+                                break;
+                        }
+                        _head = DataList.First; // New head
+                        display.Text = _max.Previous.Previous.Value.Number.ToString(CultureInfo.InvariantCulture); // New text on display
+                        DataList.Remove(_max.Previous);
+                        DataList.Remove(_max);
                     }
-                    
+
+                    if (DataList.First != null)
+                    {
+                        display.Text = DataList.First.Value.Number.ToString(CultureInfo.InvariantCulture);
+                    }
                 }
             }
+
+            // Tidying after operation
             _count = display.Text.Length; // How many characters are displayed
+            ResetCounter(ref _counter, ref _number);
+            string text = display.Text;
+            display.Text = "";
+            if (_count > 12) // Doesn't fit in display
+            {
+                for (int i = 0; i < 11; i++) // Trimms text
+                {
+                    display.Text += text[i].ToString();
+                    _number[i] = text[i].ToString();
+                }
+
+                int value = text[11] - '0';
+                if (text[12] >= '5') value++; // Rounding up
+
+                display.Text += value.ToString();
+                _number[11] = value.ToString();
+                
+                _count = 12;
+            }
+            else
+            {
+                for (int i = 0; i < _count; i++)
+                {
+                    display.Text += text[i].ToString();
+                    _number[i] = text[i].ToString();
+                }
+            }
+            _counter = display.Text.Length; // New value of counter
+            if (DataList.First != null)
+            {
+                DataList.RemoveFirst(); // Clears first node in list
+            }
+            _first = true; // First value will be entered
         }
 
         /// <summary>
@@ -525,6 +624,14 @@ namespace turbocalc
             if (e.Key == Key.Enter) // enter, serves as =
             {
                 Button_calculate_Click(sender, e);
+            }
+            if (e.Key == Key.Back) // enter, serves as =
+            {
+                Clear_Click(sender, e);
+            }
+            if (e.Key == Key.Delete) // enter, serves as =
+            {
+                Clear_Click(sender, e);
             }
         }
     }
