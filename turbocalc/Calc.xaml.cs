@@ -504,9 +504,12 @@ namespace turbocalc
 
                             _pointer = _pointer.Next;
                         }
-                        double a, b = 0;
-                        a = _max.Previous.Value.Number;
-                        if (_max.Value.Operation != "factorial") // Factorial only takes one number
+                        double a = 0, b = 0;
+                        if (_max.Value.Operation != "abs") // Modulo only takes one number (after)
+                        {
+                            a = _max.Previous.Value.Number;
+                        }
+                        if (_max.Value.Operation != "factorial") // Factorial only takes one number (before)
                         {
                             b = _max.Next.Value.Number;
                         }
@@ -514,35 +517,43 @@ namespace turbocalc
                         {
                             case "plus":
                                 DataList.AddBefore(_max.Previous, new Data(Calculator.Add(a,b))); // Adds new node with result
-                                DataList.Remove(_max.Next); // Removes redundant node
                                 break;
                             case "minus":
                                 DataList.AddBefore(_max.Previous, new Data(Calculator.Subtract(a, b))); // Adds new node with result
-                                DataList.Remove(_max.Next); // Removes redundant node
                                 break;
                             case "divide":
                                 DataList.AddBefore(_max.Previous, new Data(Calculator.Divide(a, b))); // Adds new node with result
-                                DataList.Remove(_max.Next); // Removes redundant node
                                 break;
                             case "multiply":
                                 DataList.AddBefore(_max.Previous, new Data(Calculator.Multiply(a, b))); // Adds new node with result
-                                DataList.Remove(_max.Next); // Removes redundant node
                                 break;
                             case "power":
                                 DataList.AddBefore(_max.Previous, new Data(Calculator.Power(a, (int)b))); // Adds new node with result
-                                DataList.Remove(_max.Next); // Removes redundant node
                                 break;
                             case "root":
                                 DataList.AddBefore(_max.Previous, new Data(Calculator.Root(b, (int)a))); // Adds new node with result
-                                DataList.Remove(_max.Next); // Removes redundant node
                                 break;
                             case "factorial":
                                 DataList.AddBefore(_max.Previous, new Data(Calculator.Factorial((int)a))); // Adds new node with result
                                 break;
+                            case "mod":
+                                DataList.AddBefore(_max.Previous, new Data(Calculator.Mod(a, b))); // Adds new node with result
+                                break;
+                            case "abs":
+                                DataList.AddBefore(_max, new Data(Calculator.Abs(b))); // Adds new node with result
+                                break;
                         }
                         _head = DataList.First; // New head
                         display.Text = _max.Previous.Previous.Value.Number.ToString(CultureInfo.InvariantCulture); // New text on display
-                        DataList.Remove(_max.Previous);
+                        if (_max.Value.Operation != "abs")
+                        {
+                            DataList.Remove(_max.Previous); // Removes redundant node
+                        }
+
+                        if (_max.Value.Operation != "factorial")
+                        {
+                            DataList.Remove(_max.Next); // Removes redundant node
+                        }
                         DataList.Remove(_max);
                     }
 
@@ -560,7 +571,7 @@ namespace turbocalc
             display.Text = "";
             if (_count > 12) // Doesn't fit in display
             {
-                for (int i = 0; i < 11; i++) // Trimms text
+                for (int i = 0; i < 11; i++) // Trims text
                 {
                     display.Text += text[i].ToString();
                     _number[i] = text[i].ToString();
