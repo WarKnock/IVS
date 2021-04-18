@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "turbocalc", "turbocalc\turbocalc.csproj", "{2BF321A2-C3CC-4B1D-ADF2-D8F433AFED6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorTests", "CalculatorTests\CalculatorTests.csproj", "{8C15CAF6-F0D2-4664-81D1-10328BE4B05B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculatorTests", "CalculatorTests\CalculatorTests.csproj", "{8C15CAF6-F0D2-4664-81D1-10328BE4B05B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Profiling", "profiling\Profiling.csproj", "{D9CE2B55-8398-4FDF-B027-DBBB7E030A85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{8C15CAF6-F0D2-4664-81D1-10328BE4B05B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C15CAF6-F0D2-4664-81D1-10328BE4B05B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C15CAF6-F0D2-4664-81D1-10328BE4B05B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9CE2B55-8398-4FDF-B027-DBBB7E030A85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9CE2B55-8398-4FDF-B027-DBBB7E030A85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9CE2B55-8398-4FDF-B027-DBBB7E030A85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9CE2B55-8398-4FDF-B027-DBBB7E030A85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
