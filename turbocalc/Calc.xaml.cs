@@ -310,6 +310,13 @@ namespace turbocalc
                         DataList.AddLast(new Data(0, op, weight, _bracketLevel));
                         _first = false;
                     }
+                    else if (op == "root")
+                    {
+                        FitInBox();
+                        display.Text += opSym;
+                        DataList.AddLast(new Data(2));
+                        DataList.AddLast(new Data(0, op, weight, _bracketLevel));
+                    }
                 }
                 else if (op == "minus")
                 {
@@ -338,6 +345,14 @@ namespace turbocalc
                     FitInBox();
                     display.Text += "s";
                 }
+                else if (op == "root")
+                {
+                    FitInBox();
+                    display.Text += opSym;
+                    _head = DataList.AddFirst(new Data(2));
+                    _first = false;
+                    DataList.AddLast(new Data(0, op, weight, _bracketLevel));
+                }
 
                 return;
             }
@@ -350,12 +365,12 @@ namespace turbocalc
             display.Text += opSym;
             if (_first) // Adds head to list
             {
-                _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number))));
+                _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number).Replace('.', ','))));
                 _first = false;
             }
             else // Adds number to last position in list
             {
-                DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number))));
+                DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number).Replace('.', ','))));
             }
             DataList.AddLast(new Data(0, op, weight, _bracketLevel)); // Adds operation
             ResetCounter(ref _counter, ref _number);
@@ -496,7 +511,7 @@ namespace turbocalc
                 else // Main brain
                 {
                     if(DataList.Last.Value.Operation != "factorial")
-                        DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number)))); // Adds last number to list
+                        DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number).Replace('.', ',')))); // Adds last number to list
                     LinkedListNode<Data> _pointer = DataList.Last;
                     LinkedListNode<Data> _max; // Max priority operation
                     while (DataList.Last != _head) // While list isn't only one node
