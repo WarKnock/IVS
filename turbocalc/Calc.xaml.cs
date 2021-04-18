@@ -298,6 +298,18 @@ namespace turbocalc
                         _number[_counter] = opSym;
                         _counter++;
                     }
+                    else if (op == "abs")
+                    {
+                        if (DataList.Last.Value.Operation == "" || DataList.Last.Value.Operation == "abs") return;
+                        FitInBox();
+                        display.Text += "a";
+                        FitInBox();
+                        display.Text += "b";
+                        FitInBox();
+                        display.Text += "s";
+                        DataList.AddLast(new Data(0, op, weight, _bracketLevel));
+                        _first = false;
+                    }
                 }
                 else if (op == "minus")
                 {
@@ -308,19 +320,30 @@ namespace turbocalc
                 }
                 else if (op == "abs")
                 {
-                    FitInBox();
-                    _count += 2;
-                    display.Text += opSym;
                     if (_first)
                     {
                         _head = DataList.AddFirst(new Data(0, op, weight, _bracketLevel));
                         _first = false;
                     }
 
-                    else
+                    else if (DataList.Last.Value.Operation == "")
+                    {
                         DataList.AddLast(new Data(0, op, weight, _bracketLevel));
+                    }
+                    else return;
+                    FitInBox();
+                    display.Text += "a";
+                    FitInBox();
+                    display.Text += "b";
+                    FitInBox();
+                    display.Text += "s";
                 }
 
+                return;
+            }
+
+            if (op == "abs")
+            {
                 return;
             }
             FitInBox();
@@ -346,8 +369,6 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_plus_Click(object sender, RoutedEventArgs e)
         {
-            ///TODO: ošetřit _number[0] == "-" a number[1] == null; u všech operací
-            ///TODO:_number[0] == null a pokud DataList.Last.Value.Operation == "factorial"; to samé jako Adds operation comment
             TurboFunc("plus", "+", 1);
         }
         /// <summary>
@@ -408,7 +429,7 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_power_Click(object sender, RoutedEventArgs e)
         {
-            TurboFunc("power", "xⁿ", 4);
+            TurboFunc("power", "^", 4);
 
         }
 
@@ -464,7 +485,8 @@ namespace turbocalc
         /// <param name="e"></param>
         private void Button_calculate_Click(object sender, RoutedEventArgs e)
         {
-            if (_number[0] != null)
+            bool end = false;
+            if (_number[0] != null || DataList.Last.Value.Operation == "factorial")
             {
                 FitInBox();
                 if (_first) // Only one number entered and no operation - rewrites the number
@@ -473,14 +495,15 @@ namespace turbocalc
                 }
                 else // Main brain
                 {
-                    DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number)))); // Adds last number to list
+                    if(DataList.Last.Value.Operation != "factorial")
+                        DataList.AddLast(new Data(Convert.ToDouble(string.Concat(_number)))); // Adds last number to list
                     LinkedListNode<Data> _pointer = DataList.Last;
                     LinkedListNode<Data> _max; // Max priority operation
                     while (DataList.Last != _head) // While list isn't only one node
                     {
                         _max = DataList.First.Next; // Second node == first operator
                         _pointer = DataList.First;
-                        while (_pointer != DataList.Last) // Searching for max priority operator
+                        while (_pointer != null) // Searching for max priority operator
                         {
                             if (_pointer.Value.Operation != "")
                             {
@@ -515,7 +538,16 @@ namespace turbocalc
                                 DataList.AddBefore(_max.Previous, new Data(Calculator.Subtract(a, b))); // Adds new node with result
                                 break;
                             case "divide":
-                                DataList.AddBefore(_max.Previous, new Data(Calculator.Divide(a, b))); // Adds new node with result
+                                try
+                                {
+                                    DataList.AddBefore(_max.Previous, new Data(Calculator.Divide(a, b))); // Adds new node with result
+                                }
+                                catch (Exception exception)
+                                {
+                                    warnings.Content = "Nastalo dělení nulou.\na/b -> a = " + a.ToString(CultureInfo.InvariantCulture) +", b = " + b.ToString(CultureInfo.InvariantCulture);
+                                    end = true;
+                                    Clear_Click(sender, e);
+                                }
                                 break;
                             case "multiply":
                                 DataList.AddBefore(_max.Previous, new Data(Calculator.Multiply(a, b))); // Adds new node with result
@@ -524,20 +556,57 @@ namespace turbocalc
                                 DataList.AddBefore(_max.Previous, new Data(Calculator.Power(a, (int)b))); // Adds new node with result
                                 break;
                             case "root":
-                                DataList.AddBefore(_max.Previous, new Data(Calculator.Root(b, (int)a))); // Adds new node with result
+                                try
+                                {
+                                    DataList.AddBefore(_max.Previous, new Data(Calculator.Root(b, (int)a))); // Adds new node with result
+                                }
+                                catch (Exception exception)
+                                {
+                                    warnings.Content = exception.Message + "\na^(1/n) -> a = " + a.ToString(CultureInfo.InvariantCulture) + "n = " + b.ToString(CultureInfo.InvariantCulture);
+                                    end = true;
+                                    Clear_Click(sender, e);
+                                }
                                 break;
                             case "factorial":
+                                if (Calculator.Factorial((int) a) == -1)
+                                {
+                                    warnings.Content = "Nelze udělat faktoriál ze záporného čísla.\na! -> a = " + ((int)a).ToString(CultureInfo.InvariantCulture);
+                                    end = true;
+                                    Clear_Click(sender, e);
+                                    break;
+                                }
                                 DataList.AddBefore(_max.Previous, new Data(Calculator.Factorial((int)a))); // Adds new node with result
                                 break;
                             case "mod":
-                                DataList.AddBefore(_max.Previous, new Data(Calculator.Mod(a, b))); // Adds new node with result
+                                try
+                                {
+                                    DataList.AddBefore(_max.Previous, new Data(Calculator.Mod(a, b))); // Adds new node with result
+
+                                }
+                                catch (Exception exception)
+                                {
+                                    warnings.Content = "Nastalo dělení nulou.\na%b -> a = " + a.ToString(CultureInfo.InvariantCulture) + ", b = " + b.ToString(CultureInfo.InvariantCulture);
+                                    end = true;
+                                    Clear_Click(sender, e);
+                                }
                                 break;
                             case "abs":
                                 DataList.AddBefore(_max, new Data(Calculator.Abs(b))); // Adds new node with result
                                 break;
                         }
+
+                        if (end) break;
                         _head = DataList.First; // New head
-                        display.Text = _max.Previous.Previous.Value.Number.ToString(CultureInfo.InvariantCulture); // New text on display
+
+                        if (_max.Value.Operation == "abs")
+                        {
+                            display.Text = _max.Previous.Value.Number.ToString(CultureInfo.InvariantCulture); // New text on display
+                        }
+                        else
+                        {
+                            display.Text = _max.Previous.Previous.Value.Number.ToString(CultureInfo.InvariantCulture); // New text on display
+                        }
+
                         if (_max.Value.Operation != "abs")
                         {
                             DataList.Remove(_max.Previous); // Removes redundant node
@@ -549,14 +618,13 @@ namespace turbocalc
                         }
                         DataList.Remove(_max);
                     }
-
                     if (DataList.First != null)
                     {
                         display.Text = DataList.First.Value.Number.ToString(CultureInfo.InvariantCulture);
                     }
                 }
             }
-
+            if (end) return;
             // Tidying after operation
             _count = display.Text.Length; // How many characters are displayed
             ResetCounter(ref _counter, ref _number);
@@ -629,13 +697,21 @@ namespace turbocalc
             {
                 Button_calculate_Click(sender, e);
             }
-            if (e.Key == Key.Back) // enter, serves as =
+            if (e.Key == Key.Back)
             {
                 Clear_Click(sender, e);
             }
-            if (e.Key == Key.Delete) // enter, serves as =
+            if (e.Key == Key.Delete)
             {
                 Clear_Click(sender, e);
+            }
+            if (e.Key == Key.A) // Temporary
+            {
+                Button_abs_Click(sender, e);
+            }
+            if (e.Key == Key.M) // Temporary
+            {
+                Button_mod_Click(sender, e);
             }
         }
     }
