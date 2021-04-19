@@ -1,178 +1,159 @@
-﻿using System;
+﻿///
+/// @file Calculator.cs
+///
+
+using System;
 
 namespace turbocalc
 {
     /// <summary>
-    /// Math class for calculator
+    /// Math class for the main application
     /// </summary>
     public class Calculator
     {
         /// <summary>
-        /// Adds the two numbers
+        /// Adds two numbers
         /// </summary>
         /// <param name="a">First number</param>
         /// <param name="b">Second number</param>
-        /// <returns>double a + b</returns>
+        /// <returns>Returns the sum of the two numbers</returns>
         public static double Add(double a, double b)
         {
             return (double)((decimal)a + (decimal)b);
-        }
+        } // Add()
 
         /// <summary>
-        /// Subtracts the two numbers
+        /// Subtracts two numbers
         /// </summary>
         /// <param name="a">First number</param>
         /// <param name="b">Second number</param>
-        /// <returns>double a - b</returns>
+        /// <returns>a - b</returns>
         public static double Subtract(double a, double b)
         {
             return (double)((decimal)a - (decimal)b);
-        }
+        } // Subtract()
 
         /// <summary>
-        /// Divides two numbers
+        /// Divides the two numbers
         /// </summary>
-        /// <param name="a">First number</param>
-        /// <param name="b">Second number</param>
-        /// <returns>double a / b</returns>
+        /// <param name="a">Divident</param>
+        /// <param name="b">Divisor</param>
+        /// <returns>Returns the quotient of the two numbers</returns>
         public static double Divide(double a, double b)
         {
-            if(b == 0)
+            if(b == 0) //Division by zero
                 throw new ArgumentException("Division by zero.");
             return (double)((decimal)a / (decimal)b);
-        }
+        } // Divide()
 
         /// <summary>
         /// Multiplies two numbers
         /// </summary>
         /// <param name="a">First number</param>
         /// <param name="b">Second number</param>
-        /// <returns>double a * b</returns>
+        /// <returns>Returns the product of the two numbers</returns>
         public static double Multiply(double a, double b)
         {
             return (double)((decimal)a * (decimal)b);
-        }
+        } // Multiply()
 
         /// <summary>
-        /// The number 'x' to the power of 'n'
+        /// Exponentiates a number
         /// </summary>
         /// <param name="x">Base</param>
         /// <param name="n">Exponent</param>
-        /// <returns>
-        ///     double x^n
-        ///     Throws an exception if exponent is negative and base is 0
-        /// </returns>
+        /// <returns>Returns the base to the power of exponent</returns>
         public static double Power(double x, int n)
         {
             decimal sum = 1;
             bool negative = false;
-            if (n == 0)
+
+            if (n == 0) //Exponent is 0
                 return 1;
-            if (n < 0)
+            if (n < 0) //Exponent is negative
                 negative = true;
-            //Division by zero
-            if (x == 0 && n < 0)
-                throw new ArgumentException("Can't do 0^-n -> Division by zero.");
+            if (x == 0 && n < 0) //Division by zero
+                throw new ArgumentException("Division by zero.");
 
             for (int i = 0; i < (negative ? -n : n); i++)
                 sum *= (decimal)x;
+
             return negative ? (double)(1/sum) : (double)sum;
-        }
+        } // Power()
 
         /// <summary>
-        /// 'n'-th root of 'x' - x^(1/n)
+        /// N-th root of a number
         /// </summary>
         /// <param name="x">Number to make root of</param>
-        /// <param name="n">Exponent</param>
-        /// <returns>  
-        ///     double root num^(1/n),
-        ///     Throws an exception if root of number 'x' is not defined
-        /// </returns>
+        /// <param name="n">Degree of the root</param>
+        /// <returns>Returns the N-th root of the number</returns>
         public static double Root(double x, int n)
         {
-            //Division by zero
-            if (x == 0 && n < 0)
-                throw new ArgumentException("Can't do 0^-n -> Division by zero.");
-            else if (x == 0)
+            if (x == 0 && n < 0) //Division by zero
+                throw new ArgumentException("Division by zero.");
+            else if (x == 0) //Root of 0
                 return 0;
 
             bool negative = false;
-            //Negative number and odd-order root
-            if (x < 0 && n % 2 != 0)
+            if (x < 0 && n % 2 != 0) //Negative number and odd-order root
                 negative = true;
-            //Even-order root of negative number is not defined
-            else if (x < 0 && n % 2 == 0)
+            else if (x < 0 && n % 2 == 0) //Even-order root of negative number is not defined
                 throw new ArgumentException("Even-order root of negative number is not defined.");
 
-            //If root is 0
-            if (n == 0)
-                throw new ArgumentException("Can't do zero root of something.");
+            if (n == 0) //If the degree of the root is 0
+                throw new ArgumentException("A root of degree 0 is not defined.");
             else
                 return negative ? -(Math.Pow(-x, 1.0 / n)) : (Math.Pow(x, 1.0 / n));
-        }
+        } // Root()
 
         /// <summary>
-        /// Makes factorial of a number 'x'
+        /// Makes factorial of a number
         /// </summary>
         /// <param name="x">Number to make factorial of</param>
-        /// <returns>
-        ///     int x!,
-        ///     Returns -1 if 'x' is lesser than 0
-        /// </returns>
+        /// <returns>Returns a factorial of the number</returns>
         public static int Factorial(int x)
         {
             int sum = 1;
-            //Factorial of 0
-            if (x == 0)
+            
+            if (x == 0) //Factorial of 0
                 return 1;
-            //Negative input
-            else if (x < 0)
+            if (x < 0) //Negative number
                 return -1;
-            else
-            {
-                for (int i = x; i > 0; i--)
-                    sum *= i;
-                return sum;
-            }
+
+            for (int i = x; i > 0; i--)
+                sum *= i;
+
+            return sum;
         }
 
         /// <summary>
-        /// Modulo of two numbers
+        /// Gets the remainder from dividing two numbers
         /// </summary>
-        /// in C# a % b != a mod b (for negative numbers)
-        /// In Math a mod b is remainder after Euclidean division
-        /// The remainder in Euclidean division is always positive
-        /// Examples:  10 mod 3 = 1
-        ///            10 mod -3 = 1
-        ///           -10 mod 3 = 2
-        ///           -10 mod -3 = 2
-        /// <param name="a">First number</param>
-        /// <param name="b">Second number</param>
-        /// <returns>
-        ///     int a mod b
-        ///     Throws an exception if dividing by 0
-        /// </returns>
+        /// <param name="a">Divident</param>
+        /// <param name="b">Divisor</param>
+        /// <returns>Returns the remainder of the divident divided by the divisor</returns>
         public static double Mod(double a, double b) 
         {
-            if (b == 0)
+            if (b == 0) //Division by zero
                 throw new ArgumentException("Division by zero.");
-            var mod = a % b;
-            if (mod < 0)
-                mod = (b < 0) ? mod - b : mod + b;
-            return mod;
-        }
+
+            decimal mod = (decimal)a % (decimal)b;
+            if (mod < 0) //Mod definition is different for negative numbers
+                mod = (b < 0) ? mod - (decimal)b : mod + (decimal)b;
+            return (double)mod;
+        } // Mod()
 
         /// <summary> 
-        /// Absolute of the number
+        /// Makes absolute of a number
         /// </summary>
         /// <param name="x">Number</param>
-        /// <returns>double |x|</returns>
+        /// <returns>Returns the absolute of the number</returns>
         public static double Abs(double x)
         {
             if (x < 0)
                 return -x;
             else
                 return x;
-        }
-    }
+        } // Abs()
+    } //class Calculator
 }
