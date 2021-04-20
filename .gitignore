@@ -33,3 +33,7 @@
 */obj/
 .vs/
 *.user
+
+# Doxygen folder and warnings
+*/documentation/
+doxygen-warnings.txt
