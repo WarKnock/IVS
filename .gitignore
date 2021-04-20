@@ -29,11 +29,11 @@
 *.app
 
 # Visual studio
-*/bin/
-*/obj/
+bin/
+obj/
 .vs/
 *.user
 
 # Doxygen folder and warnings
-*/documentation/
+documentation/
 doxygen-warnings.txt
