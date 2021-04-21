@@ -1,9 +1,15 @@
 ﻿///
 /// @file Calculator.cs
+/// <summary>
+/// File containing math functions
+/// </summary>
 ///
 
 using System;
 
+/// <summary>
+/// Calculator namespace
+/// </summary>
 namespace Turbocalc
 {
     /// <summary>
@@ -156,4 +162,4 @@ namespace Turbocalc
                 return x;
         } // Abs()
     } //class Calculator
-}
+} // namespace Turbocalc

@@ -1,8 +1,19 @@
+///
+/// @file UnitTest1.cs
+/// <summary>
+/// Tests for math class
+/// </summary>
+///
+
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Turbocalc;
 
+
+/// <summary>
+/// CalculatorTests namespace
+/// </summary>
 namespace CalculatorTests
 {
     /// <summary>
@@ -21,7 +32,7 @@ namespace CalculatorTests
             Assert.AreNotEqual(0, Calculator.Add(1,2));
             Assert.AreEqual(-5, Calculator.Add(1,-6));
             Assert.AreEqual(-3, Calculator.Add(-1,-2));
-        }
+        } // BasicTest()
 
         /// <summary>
         /// Testing adding two doubles
@@ -33,9 +44,9 @@ namespace CalculatorTests
             Assert.AreNotEqual(0, Calculator.Add(1.7, 2.8));
             Assert.AreEqual(-5, Calculator.Add(1.4, -6.4));
             Assert.AreEqual(-3, Calculator.Add(-1.2, -1.8));
-        }
+        } // DoubleTest()
 
-    }
+    } //class Add
 
     /// <summary>
     /// Testing cases for subtract
@@ -55,7 +66,7 @@ namespace CalculatorTests
             Assert.AreEqual(1, Calculator.Subtract(-1,-2));
             Assert.AreEqual(-13, Calculator.Subtract(-5,8));
             Assert.AreNotEqual(0, Calculator.Subtract(-1,-2));
-        }
+        } // BasicTest()
 
         /// <summary>
         /// Testing subtracting two doubles
@@ -69,8 +80,8 @@ namespace CalculatorTests
             Assert.AreEqual(1, Calculator.Subtract(-1.9,-2.9));
             Assert.AreEqual(-11.1, Calculator.Subtract(-6.9,4.2));
             Assert.AreNotEqual(0, Calculator.Subtract(-1.8,-2.01));
-        }
-    }
+        } // DoubleTest()
+    } //class Subtract
 
     /// <summary>
     /// Testing cases for Multiply
@@ -88,7 +99,7 @@ namespace CalculatorTests
             Assert.AreNotEqual(1, Calculator.Multiply(1,0));
             Assert.AreEqual(-5, Calculator.Multiply(-1,5));
             Assert.AreEqual(1, Calculator.Multiply(-1,-1));
-        }
+        } // BasicTest()
 
         /// <summary>
         /// Testing multiplying two doubles
@@ -100,8 +111,8 @@ namespace CalculatorTests
             Assert.AreNotEqual(1, Calculator.Multiply(1.6, 0));
             Assert.AreEqual(-6.84, Calculator.Multiply(-1.2, 5.7));
             Assert.AreEqual(1, Calculator.Multiply(-1.0, -1.0));
-        }
-    }
+        } // DoubleTest()
+    } //class Multiply
 
     /// <summary>
     /// Testing cases for Divide
@@ -119,7 +130,7 @@ namespace CalculatorTests
             Assert.AreNotEqual(10, Calculator.Divide(5, 2));
             Assert.AreEqual(-5, Calculator.Divide(-5,1));
             Assert.AreEqual(1, Calculator.Divide(-1, -1));
-        }
+        } // BasicTest()
 
         /// <summary>
         /// Testing dividing two doubles
@@ -132,8 +143,8 @@ namespace CalculatorTests
             Assert.AreEqual(-4.75, Calculator.Divide(-5.7, 1.2));
             Assert.AreEqual(1, Calculator.Divide(-1.0, -1.0));
             Assert.ThrowsException<ArgumentException>(() => Calculator.Divide(1.0,0.0));
-        }
-    }
+        } // DoubleTest()
+    } //class Divide
 
     /// <summary>
     /// Testing cases for Power
@@ -154,7 +165,7 @@ namespace CalculatorTests
             Assert.AreEqual(0.25, Calculator.Power(2, -2));
             Assert.AreEqual(1, Calculator.Power(0, 0));
             Assert.ThrowsException<ArgumentException>(() => Calculator.Power(0, -1));
-        }
+        } // BasicTest()
 
         /// <summary>
         /// Testing power of double
@@ -164,8 +175,8 @@ namespace CalculatorTests
         {
             Assert.AreEqual(1.21, Calculator.Power(1.1,2));
             Assert.AreEqual(1, Calculator.Power(5.6, 0));
-        }
-    }
+        } // DoubleTest()
+    } //class Power
 
     /// <summary>
     /// Testing cases for Root
@@ -187,7 +198,7 @@ namespace CalculatorTests
             Assert.AreEqual(0.5,Calculator.Root(4,-2));
             Assert.AreEqual(-1,Calculator.Root(-1,3));
             Assert.ThrowsException<ArgumentException>(() => Calculator.Root(0, -1));
-        }
+        } // BasicTest()
 
         /// <summary>
         /// Testing root of double
@@ -196,8 +207,8 @@ namespace CalculatorTests
         public void DoubleTest()
         { 
             Assert.AreEqual(0.25, Calculator.Root(0.0625, 2));
-        }
-    }
+        } // DoubleTest()
+    } //class Root
 
     /// <summary>
     /// Testing cases for Factorial
@@ -214,8 +225,8 @@ namespace CalculatorTests
             Assert.AreEqual(6, Calculator.Factorial(3));
             Assert.AreEqual(120, Calculator.Factorial(5));
             Assert.AreEqual(1, Calculator.Factorial(1));
-            
-        }
+
+        } // BasicTest()
 
         /// <summary>
         /// Testing factorial of zero
@@ -224,7 +235,7 @@ namespace CalculatorTests
         public void ZeroTest()
         {
             Assert.AreEqual(1, Calculator.Factorial(0));
-        }
+        } // DoubleTest()
 
         /// <summary>
         /// Testing factorial of negative number
@@ -233,9 +244,12 @@ namespace CalculatorTests
         public void NegativeTest()
         {
             Assert.AreEqual(-1,Calculator.Factorial(-5));
-        }
-    }
+        } // NegativeTest()
+    } //class Factorial
 
+    /// <summary>
+    /// Testing cases for Mod
+    /// </summary>
     [TestClass]
     public class Mod
     {
@@ -250,7 +264,7 @@ namespace CalculatorTests
             Assert.AreEqual(0, Calculator.Mod(3,3));
             Assert.AreEqual(1, Calculator.Mod(10,3));
             Assert.AreEqual(4, Calculator.Mod(54, 5));
-        }
+        } // BasicTest()
 
         /// <summary>
         /// Testing modulo function of two negative integers
@@ -265,7 +279,7 @@ namespace CalculatorTests
             Assert.AreEqual(4, Calculator.Mod(54, -5));
             Assert.AreEqual(1, Calculator.Mod(-54, -5));
             Assert.AreEqual(1, Calculator.Mod(-54, 5));
-        }
+        } // TestingNegative()
 
         /// <summary>
         /// Testing modulo function for Throw when a mod 0
@@ -274,7 +288,7 @@ namespace CalculatorTests
         public void TestingModByZeroThrow()
         {
             Assert.ThrowsException<ArgumentException>(() => Calculator.Mod(1, 0));
-        }
+        } // TestingModByZeroThrow()
 
         /// <summary>
         /// Testing modulo function of two integers resulting zero
@@ -286,10 +300,12 @@ namespace CalculatorTests
             Assert.AreEqual(0, Calculator.Mod(-9, -3));
             Assert.AreEqual(0, Calculator.Mod(-9, -3));
             Assert.AreEqual(0, Calculator.Mod(9, -3));
-        }
-    }
+        } // TestingResultZero()
+    } //class Mod
 
-
+    /// <summary>
+    /// Testing cases for Abs
+    /// </summary>
     [TestClass]
     public class Abs
     {
@@ -302,7 +318,7 @@ namespace CalculatorTests
             Assert.AreNotEqual(-100, Calculator.Abs(100));
             Assert.AreEqual(100, Calculator.Abs(100));
             Assert.AreEqual(100, Calculator.Abs(-100));
-        }
+        } // BasicTest()
 
         /// <summary>
         /// Testing absolute value of a double
@@ -313,6 +329,7 @@ namespace CalculatorTests
             Assert.AreNotEqual(-100.99, Calculator.Abs(100.99));
             Assert.AreEqual(100.98, Calculator.Abs(100.98));
             Assert.AreEqual(100.59, Calculator.Abs(-100.59));
-        }
-    }
-}
+        } // DoubleTest()
+    } //class Abs
+
+} // namespace CalculatorTests

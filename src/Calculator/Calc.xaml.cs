@@ -1,4 +1,11 @@
-﻿using System;
+﻿///
+/// @file Calc.xaml.cs
+/// <summary>
+/// Main application
+/// </summary>
+///
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -16,6 +23,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+/// <summary>
+/// Calculator namespace
+/// </summary>
 namespace Turbocalc
 {
     /// <summary>
@@ -64,14 +74,16 @@ namespace Turbocalc
         private bool _pointNumber = false; // If point was entered
         private bool _rBracket = false;
 
-
+        /// <summary>
+        /// Initialization
+        /// </summary>
         public Calc()
         {
             InitializeComponent();
         }
 
         /// <summary>
-        /// Erases the most left character in textBlock to make a space for new character.
+        /// Erases the most left character in textBlock to make a space for new character
         /// </summary>
         private void FitInBox()
         {
@@ -90,7 +102,7 @@ namespace Turbocalc
         /// <summary>
         /// Writes help when bad combination is entered
         /// </summary>
-        /// <param name="choice">last operator</param>
+        /// <param name="choice">Last operator</param>
         private void WriteHelp(string choice)
         {
             switch (choice)
@@ -138,12 +150,12 @@ namespace Turbocalc
                     warnings.Content = "Použití = :\n\tčíslo =";
                     break;
             }
-        }
+        } // WriteHelp()
 
         /// <summary>
         /// Function when number is clicked
         /// </summary>
-        /// <param name="number">which number was clicked</param>
+        /// <param name="number">Which number was clicked</param>
         private void NumberClicked(string number)
         {
             if (_rBracket) // number can't be after ) -> 1)7 cause it will result in storing number 17
@@ -160,13 +172,13 @@ namespace Turbocalc
             display.Text += number;
             _number[_counter] = number;
             _counter++; // next number
-        }
+        } // NumberClicked()
 
         /// <summary>
         /// Resets counter of letters in number
         /// </summary>
-        /// <param name="counter"> counter of letters in number</param>
-        /// <param name="number"> string for number </param>
+        /// <param name="counter">Counter of letters in number</param>
+        /// <param name="number">String for number</param>
         private static void ResetCounter(ref int counter, ref string[] number)
         {
             for (int i = 0; i < counter; i++)
@@ -175,113 +187,113 @@ namespace Turbocalc
             }
 
             counter = 0; // Resets counter
-        }
+        } // ResetCounter()
 
         /// <summary>
         /// Button 0 clicked, writes 0 to display and ads 0 to number
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_0_Click(object sender, RoutedEventArgs e)
         {
             NumberClicked("0");
-        }
+        } // Button_0_Click()
 
         /// <summary>
         /// Button 1 clicked, writes 1 to display and ads 1 to number
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_1_Click(object sender, RoutedEventArgs e)
         {
             NumberClicked("1");
-        }
+        } // Button_1_Click()
 
         /// <summary>
         /// Button 2 clicked, writes 2 to display and ads 2 to number
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_2_Click(object sender, RoutedEventArgs e)
         {
             NumberClicked("2");
-        }
+        } // Button_2_Click()
 
         /// <summary>
         /// Button 3 clicked, writes 3 to display and ads 3 to number
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_3_Click(object sender, RoutedEventArgs e)
         {
             NumberClicked("3");
-        }
+        } // Button_3_Click()
 
         /// <summary>
         /// Button 4 clicked, writes 4 to display and ads 4 to number
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_4_Click(object sender, RoutedEventArgs e)
         {
             NumberClicked("4");
-        }
+        } // Button_4_Click()
 
         /// <summary>
         /// Button 5 clicked, writes 5 to display and ads 5 to number
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_5_Click(object sender, RoutedEventArgs e)
         {
             NumberClicked("5");
-        }
+        } // Button_5_Click()
 
         /// <summary>
         /// Button 6 clicked, writes 6 to display and ads 6 to number
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_6_Click(object sender, RoutedEventArgs e)
         {
             NumberClicked("6");
-        }
+        } // Button_6_Click()
 
         /// <summary>
         /// Button 7 clicked, writes 7 to display and ads 7 to number
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_7_Click(object sender, RoutedEventArgs e)
         {
             NumberClicked("7");
-        }
+        } // Button_7_Click()
 
         /// <summary>
         /// Button 8 clicked, writes 8 to display and ads 8 to number
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_8_Click(object sender, RoutedEventArgs e)
         {
             NumberClicked("8");
-        }
+        } // Button_8_Click()
 
         /// <summary>
         /// Button 9 clicked, writes 9 to display and ads 9 to number
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_9_Click(object sender, RoutedEventArgs e)
         {
             NumberClicked("9");
-        }
+        } // Button_9_Click()
 
         /// <summary>
         /// Button clear clicked, resets everything and erases display
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
             _count = 0;
@@ -298,13 +310,13 @@ namespace Turbocalc
             _first = true;  // Next number will be first in dataList(which is empty)
             _rBracket = false; // Resets right bracket
             _pointNumber = false; // Resets point number
-        }
+        } // Clear_Click()
 
         /// <summary>
         /// Button . clicked, writes , to display and , to number string
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_point_Click(object sender, RoutedEventArgs e)
         {
             if (_rBracket) // Can't be ).
@@ -329,8 +341,14 @@ namespace Turbocalc
             _number[_counter] = ",";
             _counter++;
             _pointNumber = true;
-        }
+        } // Button_point_Click()
 
+        /// <summary>
+        /// Displays operations on calculator
+        /// </summary>
+        /// <param name="op">Operator</param>
+        /// <param name="opSym"></param>
+        /// <param name="weight">Weight of operator</param>
         private void TurboFunc(string op, string opSym, int weight)
         {
             if (_number[0] == "-" && _number[1] == null)
@@ -453,105 +471,104 @@ namespace Turbocalc
             _pointNumber = false;
             _rBracket = false;
             warnings.Content = ""; // Resets warning
-        }
-
+        } // TurboFunc()
 
         /// <summary>
         /// Button + clicked, writes + to display, sets number to list and adds operation "plus" to list
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_plus_Click(object sender, RoutedEventArgs e)
         {
             TurboFunc("plus", "+", 1);
-        }
+        } // Button_plus_Click()
+
         /// <summary>
         /// Button - clicked, writes - to display, sets number to list and adds operation "minus" to list
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_minus_Click(object sender, RoutedEventArgs e)
         {
             if (_number[0] == "-" && _number[1] == null) return;
             TurboFunc("minus", "-", 1);
-        }
+        } // Button_minus_Click()
 
         /// <summary>
         /// Button ÷ clicked, writes ÷ to display, sets number to list and adds operation "divide" to list
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_divide_Click(object sender, RoutedEventArgs e)
         {
             TurboFunc("divide", "÷", 2);
-        }
+        } // Button_divide_Click()
 
         /// <summary>
         /// Button × clicked, writes × to display, sets number to list and adds operation "multiply" to list
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_multiply_Click(object sender, RoutedEventArgs e)
         {
             TurboFunc("multiply", "x", 2);
-        }
+        } // Button_multiply_Click()
 
         /// <summary>
         /// Button ! clicked, writes ! to display, sets number to list and adds operation "factorial" to list
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_factorial_Click(object sender, RoutedEventArgs e)
         {
             TurboFunc("factorial", "!", 5);
-        }
+        } // Button_factorial_Click()
 
         /// <summary>
         /// Button √ clicked, writes √ to display, sets number to list and adds operation "root" to list
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_root_Click(object sender, RoutedEventArgs e)
         {
             TurboFunc("root", "√", 3);
-        }
+        } // Button_root_Click()
 
         /// <summary>
         /// Button xⁿ clicked, writes xⁿ to display, sets number to list and adds operation "power" to list
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_power_Click(object sender, RoutedEventArgs e)
         {
             TurboFunc("power", "^", 4);
-
-        }
+        } // Button_power_Click()
 
         /// <summary>
         /// Button abs clicked, writes "abs" to display, sets number to list and adds operation "abs" to list
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_abs_Click(object sender, RoutedEventArgs e)
         {
             TurboFunc("abs", "abs", 5);
-
-        }
+        } // Button_abs_Click()
 
         /// <summary>
         /// Button abs clicked, writes "mod" to display, sets number to list and adds operation "mod" to list
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_mod_Click(object sender, RoutedEventArgs e)
         {
             TurboFunc("mod", "%", 2);
-        }
+        } // Button_mod_Click()
+
         /// <summary>
         /// Button ( clicked, highers bracketLevel and writes ( to display
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_leftBracket_Click(object sender, RoutedEventArgs e)
         {
             if (_number[0] == null)
@@ -564,13 +581,13 @@ namespace Turbocalc
             {
                 WriteHelp("lBracket");
             }
-        }
+        } // Button_leftBracket_Click()
 
         /// <summary>
         /// Button ) clicked, lowers bracketLevel and writes ) to display
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_rightBracket_Click(object sender, RoutedEventArgs e)
         {
             if (_number[0] != null)
@@ -584,14 +601,13 @@ namespace Turbocalc
             {
                 WriteHelp("rBracket");
             }
-        }
-
+        } // Button_rightBracket_Click()
 
         /// <summary>
         /// Button = clicked, calculates result and writes it in display
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Event data associated with a routed event</param>
         private void Button_calculate_Click(object sender, RoutedEventArgs e)
         {
             bool end = false;
@@ -774,13 +790,13 @@ namespace Turbocalc
                 DataList.RemoveFirst(); // Clears first node in list
             }
             _first = true; // First value will be entered
-        }
+        } // Button_calculate_Click()
 
         /// <summary>
         /// Catches key presses and links them to button functions
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Reference to object</param>
+        /// <param name="e">Data for the KeyUp and KeyDown routed events</param>
         private void Key_press(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Divide)
@@ -827,6 +843,7 @@ namespace Turbocalc
             {
                 Button_mod_Click(sender, e);
             }
-        }
-    }
-}
+        } // Key_press()
+
+    } // class Calc
+} //namespace Turbocalc

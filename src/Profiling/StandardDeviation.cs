@@ -1,4 +1,11 @@
-﻿using System;
+﻿///
+/// @file StandardDeviation.cs
+/// <summary>
+/// Standard deviation program
+/// </summary>
+///
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,20 +19,29 @@ using System.Runtime.InteropServices;
 using Turbocalc;
 using System.Diagnostics;
 
+/// <summary>
+/// Profiling namespace
+/// </summary>
 namespace Profiling
 {
-    public partial class Form1 : Form
+    /// <summary>
+    /// Standard deviation class
+    /// </summary>
+    public partial class StandardDeviation : Form
     {
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool AllocConsole();
-        public Form1()
+        public StandardDeviation()
         {
             InitializeComponent();
             AllocConsole();
             CalculateTimes();
         }
 
+        /// <summary>
+        /// Reads input
+        /// </summary>
         private void CalculateTimes()
         {
             string line;
@@ -49,8 +65,13 @@ namespace Profiling
                 }
             }
             CalcExpression(data, volume);
-        }
+        } // CalculateTimes()
 
+        /// <summary>
+        /// Calculates standard deviation
+        /// </summary>
+        /// <param name="data">List of numbers</param>
+        /// <param name="volume">Size of numer list</param>
         private void CalcExpression(List<int> data, int volume)
         {
             Stopwatch addition = new Stopwatch();
@@ -115,6 +136,7 @@ namespace Profiling
             Console.WriteLine("Time sqrt: {0}", sqrt.Elapsed.TotalMilliseconds * 1000000);
             Console.WriteLine("Time pow: {0}", pow.Elapsed.TotalMilliseconds * 1000000);
 
-        }
-    }
-}
+        } // CalcExpresion()
+
+    } // class Form1
+} // namespace Profiling

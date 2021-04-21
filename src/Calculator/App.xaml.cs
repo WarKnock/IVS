@@ -6,7 +6,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace turbocalc
+/// <summary>
+/// Calculator namespace
+/// </summary>
+namespace Turbocalc
 {
     /// <summary>
     /// Interaction logic for App.xaml
