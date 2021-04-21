@@ -61,6 +61,8 @@ namespace Turbocalc
         private LinkedListNode<Data> _head; /// Head of dataList
 
         private bool _first = true; // Determines first insertion into list
+        private bool _pointNumber = false; // If point was entered
+        private bool _rBracket = false;
 
 
         public Calc()
@@ -86,6 +88,81 @@ namespace Turbocalc
         }
 
         /// <summary>
+        /// Writes help when bad combination is entered
+        /// </summary>
+        /// <param name="choice">last operator</param>
+        private void WriteHelp(string choice)
+        {
+            switch (choice)
+            {
+                case "plus":
+                    warnings.Content = "Použití operátoru + :\n\tčíslo + číslo";
+                    break;
+                case "minus":
+                    warnings.Content = "Použití operátoru - :\n\tčíslo - číslo\n\t-číslo";
+                    break;
+                case "divide":
+                    warnings.Content = "Použití operátoru ÷ :\n\tčíslo ÷ číslo";
+                    break;
+                case "multiply":
+                    warnings.Content = "Použití operátoru x :\n\tčíslo x číslo";
+                    break;
+                case "power":
+                    warnings.Content = "Použití operátoru xⁿ :\n\tčíslo(x) ^ exponent(n)";
+                    break;
+                case "root":
+                    warnings.Content = "Použití operátoru + :\n\tčíslo √ číslo\n\t√ číslo -> druhá odmocnina";
+                    break;
+                case "factorial":
+                    warnings.Content = "Použití operátoru ! :\n\tčíslo !";
+                    break;
+                case "abs":
+                    warnings.Content = "Použití operátoru abs :\n\tabs číslo\n\tabs ( výpočet )";
+                    break;
+                case "mod":
+                    warnings.Content = "Použití operátoru mod :\n\tčíslo % číslo";
+                    break;
+                case "point":
+                    warnings.Content = "Použití desetinné čárky(tečky) :\n\tčíslo , číslo\nPři nezadání 1. čísla bude doplněna 0 před";
+                    break;
+                case "lBracket":
+                    warnings.Content = "Použití ( :\n\toperátor ( číslo";
+                    break;
+                case "rBracket":
+                    warnings.Content = "Použití ) :\n\tčíslo ) operátor";
+                    break;
+                case "pair":
+                    warnings.Content = "Některé závorky nebyly řádně ukončeny.\n Chybějící závorky byly doplněny\npřed a za příklad.";
+                    break;
+                case "equal":
+                    warnings.Content = "Použití = :\n\tčíslo =";
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Function when number is clicked
+        /// </summary>
+        /// <param name="number">which number was clicked</param>
+        private void NumberClicked(string number)
+        {
+            if (_rBracket) // number can't be after ) -> 1)7 cause it will result in storing number 17
+            {
+                WriteHelp("rBracket");
+                return;
+            }
+            if ((_counter == 1) && (_number[0] == "0"))
+            {
+                if (number == "0") return; // Prevents numbers like 000000001
+                else _counter--; // Storing number without 0 -> 01 as 1 
+            }
+            FitInBox();
+            display.Text += number;
+            _number[_counter] = number;
+            _counter++; // next number
+        }
+
+        /// <summary>
         /// Resets counter of letters in number
         /// </summary>
         /// <param name="counter"> counter of letters in number</param>
@@ -107,11 +184,7 @@ namespace Turbocalc
         /// <param name="e"></param>
         private void Button_0_Click(object sender, RoutedEventArgs e)
         {
-            if ((_counter == 1) && (_number[0] == "0")) return; // Prevents numbers like 000000001
-            FitInBox();
-            display.Text += "0";
-            _number[_counter] = "0";
-            _counter++;
+            NumberClicked("0");
         }
 
         /// <summary>
@@ -121,11 +194,7 @@ namespace Turbocalc
         /// <param name="e"></param>
         private void Button_1_Click(object sender, RoutedEventArgs e)
         {
-            if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
-            FitInBox();
-            display.Text += "1";
-            _number[_counter] = "1";
-            _counter++;
+            NumberClicked("1");
         }
 
         /// <summary>
@@ -135,11 +204,7 @@ namespace Turbocalc
         /// <param name="e"></param>
         private void Button_2_Click(object sender, RoutedEventArgs e)
         {
-            if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
-            FitInBox();
-            display.Text += "2";
-            _number[_counter] = "2";
-            _counter++;
+            NumberClicked("2");
         }
 
         /// <summary>
@@ -149,11 +214,7 @@ namespace Turbocalc
         /// <param name="e"></param>
         private void Button_3_Click(object sender, RoutedEventArgs e)
         {
-            if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
-            FitInBox();
-            display.Text += "3";
-            _number[_counter] = "3";
-            _counter++;
+            NumberClicked("3");
         }
 
         /// <summary>
@@ -163,11 +224,7 @@ namespace Turbocalc
         /// <param name="e"></param>
         private void Button_4_Click(object sender, RoutedEventArgs e)
         {
-            if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
-            FitInBox();
-            display.Text += "4";
-            _number[_counter] = "4";
-            _counter++;
+            NumberClicked("4");
         }
 
         /// <summary>
@@ -177,11 +234,7 @@ namespace Turbocalc
         /// <param name="e"></param>
         private void Button_5_Click(object sender, RoutedEventArgs e)
         {
-            if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
-            FitInBox();
-            display.Text += "5";
-            _number[_counter] = "5";
-            _counter++;
+            NumberClicked("5");
         }
 
         /// <summary>
@@ -191,11 +244,7 @@ namespace Turbocalc
         /// <param name="e"></param>
         private void Button_6_Click(object sender, RoutedEventArgs e)
         {
-            if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
-            FitInBox();
-            display.Text += "6";
-            _number[_counter] = "6";
-            _counter++;
+            NumberClicked("6");
         }
 
         /// <summary>
@@ -205,11 +254,7 @@ namespace Turbocalc
         /// <param name="e"></param>
         private void Button_7_Click(object sender, RoutedEventArgs e)
         {
-            if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
-            FitInBox();
-            display.Text += "7";
-            _number[_counter] = "7";
-            _counter++;
+            NumberClicked("7");
         }
 
         /// <summary>
@@ -219,11 +264,7 @@ namespace Turbocalc
         /// <param name="e"></param>
         private void Button_8_Click(object sender, RoutedEventArgs e)
         {
-            if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
-            FitInBox();
-            display.Text += "8";
-            _number[_counter] = "8";
-            _counter++;
+            NumberClicked("8");
         }
 
         /// <summary>
@@ -233,11 +274,7 @@ namespace Turbocalc
         /// <param name="e"></param>
         private void Button_9_Click(object sender, RoutedEventArgs e)
         {
-            if ((_counter == 1) && (_number[0] == "0")) _counter--; // Prevents numbers like 000000001
-            FitInBox();
-            display.Text += "9";
-            _number[_counter] = "9";
-            _counter++;
+            NumberClicked("9");
         }
 
         /// <summary>
@@ -259,6 +296,8 @@ namespace Turbocalc
             }
             ResetCounter(ref _counter, ref  _number); // Resets counter
             _first = true;  // Next number will be first in dataList(which is empty)
+            _rBracket = false; // Resets right bracket
+            _pointNumber = false; // Resets point number
         }
 
         /// <summary>
@@ -268,18 +307,38 @@ namespace Turbocalc
         /// <param name="e"></param>
         private void Button_point_Click(object sender, RoutedEventArgs e)
         {
-            if (_counter > 0)
+            if (_rBracket) // Can't be ).
+            {
+                WriteHelp("rBracket");
+                return;
+            }
+            if (_pointNumber) // Can't be 0..
+            {
+                WriteHelp("point");
+                return;
+            }
+            if (_counter == 0) // if point is entered first, then adds 0 before point -> 0,
             {
                 FitInBox();
-                display.Text += ".";
-                _number[_counter] = ",";
+                display.Text += "0";
+                _number[_counter] = "0";
                 _counter++;
             }
+            FitInBox();
+            display.Text += ".";
+            _number[_counter] = ",";
+            _counter++;
+            _pointNumber = true;
         }
 
         private void TurboFunc(string op, string opSym, int weight)
         {
-            if (_number[0] == "-" && _number[1] == null) return;
+            if (_number[0] == "-" && _number[1] == null)
+            {
+                WriteHelp(op);
+                return;
+            }
+
 
             if (_number[0] == null)
             {
@@ -317,6 +376,10 @@ namespace Turbocalc
                         DataList.AddLast(new Data(2));
                         DataList.AddLast(new Data(0, op, weight, _bracketLevel));
                     }
+                    else
+                    {
+                        WriteHelp(op);
+                    }
                 }
                 else if (op == "minus")
                 {
@@ -337,7 +400,11 @@ namespace Turbocalc
                     {
                         DataList.AddLast(new Data(0, op, weight, _bracketLevel));
                     }
-                    else return;
+                    else
+                    {
+                        WriteHelp(op);
+                        return;
+                    }
                     FitInBox();
                     display.Text += "a";
                     FitInBox();
@@ -353,12 +420,21 @@ namespace Turbocalc
                     _first = false;
                     DataList.AddLast(new Data(0, op, weight, _bracketLevel));
                 }
+                else
+                {
+                    WriteHelp(op);
+                    return;
+                }
 
+                _pointNumber = false;
+                _rBracket = false;
+                warnings.Content = "";
                 return;
             }
 
             if (op == "abs")
             {
+                WriteHelp(op);
                 return;
             }
             FitInBox();
@@ -374,6 +450,9 @@ namespace Turbocalc
             }
             DataList.AddLast(new Data(0, op, weight, _bracketLevel)); // Adds operation
             ResetCounter(ref _counter, ref _number);
+            _pointNumber = false;
+            _rBracket = false;
+            warnings.Content = ""; // Resets warning
         }
 
 
@@ -475,9 +554,16 @@ namespace Turbocalc
         /// <param name="e"></param>
         private void Button_leftBracket_Click(object sender, RoutedEventArgs e)
         {
-            FitInBox();
-            display.Text += "(";
-            _bracketLevel++;
+            if (_number[0] == null)
+            {
+                FitInBox();
+                display.Text += "(";
+                _bracketLevel++;
+            }
+            else
+            {
+                WriteHelp("lBracket");
+            }
         }
 
         /// <summary>
@@ -487,9 +573,17 @@ namespace Turbocalc
         /// <param name="e"></param>
         private void Button_rightBracket_Click(object sender, RoutedEventArgs e)
         {
-            FitInBox();
-            display.Text += ")";
-            _bracketLevel--;
+            if (_number[0] != null)
+            {
+                FitInBox();
+                display.Text += ")";
+                _bracketLevel--;
+                _rBracket = true;
+            }
+            else
+            {
+                WriteHelp("rBracket");
+            }
         }
 
 
@@ -638,6 +732,11 @@ namespace Turbocalc
                         display.Text = DataList.First.Value.Number.ToString(CultureInfo.InvariantCulture);
                     }
                 }
+            }
+            else
+            {
+                WriteHelp("equal");
+                return;
             }
             if (end) return;
             // Tidying after operation
