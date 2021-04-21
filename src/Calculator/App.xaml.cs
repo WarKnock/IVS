@@ -1,4 +1,11 @@
-﻿using System;
+﻿///
+/// @file App.xaml.cs
+/// <summary>
+/// Contains interaction logic for App.xaml
+/// </summary>
+///
+
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
