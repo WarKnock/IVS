@@ -7,17 +7,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using Turbocalc;
 using System.Diagnostics;
+
 
 /// <summary>
 /// Profiling namespace
@@ -27,14 +20,13 @@ namespace Profiling
     /// <summary>
     /// Standard deviation class
     /// </summary>
-    public partial class StandardDeviation : Form
+    class StandardDeviation
     {
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool AllocConsole();
-        public StandardDeviation()
+        static void Main()
         {
-            InitializeComponent();
             AllocConsole();
             CalculateTimes();
         }
@@ -42,15 +34,15 @@ namespace Profiling
         /// <summary>
         /// Reads input
         /// </summary>
-        private void CalculateTimes()
+        private static void CalculateTimes()
         {
             string line;
-            string[] input; 
+            string[] input;
             int volume = 0;
             List<int> data = new List<int>();
             while ((line = Console.ReadLine()) != null && line != "")
             {
-                input = line.Split(new char[] {' ', (char) 9, '\n'});
+                input = line.Split(new char[] { ' ', (char)9, '\n' });
                 volume += input.Length;
                 foreach (var number in input)
                 {
@@ -64,15 +56,16 @@ namespace Profiling
                     }
                 }
             }
+
             CalcExpression(data, volume);
-        } // CalculateTimes()
+        }
 
         /// <summary>
         /// Calculates standard deviation
         /// </summary>
         /// <param name="data">List of numbers</param>
         /// <param name="volume">Size of numer list</param>
-        private void CalcExpression(List<int> data, int volume)
+        private static void CalcExpression(List<int> data, int volume)
         {
             Stopwatch addition = new Stopwatch();
             Stopwatch multiply = new Stopwatch();
@@ -87,7 +80,7 @@ namespace Profiling
             foreach (var number in data)
             {
                 addition.Start();
-               sum = Calculator.Add(sum, number);
+                sum = Calculator.Add(sum, number);
                 addition.Stop();
             }
             divide.Start();
@@ -109,7 +102,7 @@ namespace Profiling
                 pow.Start();
                 Arithmetic += Calculator.Power(number, 2);
                 pow.Stop();
-                
+
             }
             substract.Start();
             sum = Calculator.Subtract(Arithmetic, expression);
@@ -138,5 +131,5 @@ namespace Profiling
 
         } // CalcExpresion()
 
-    } // class Form1
+    } // class StandardDeviation
 } // namespace Profiling
