@@ -73,6 +73,7 @@ namespace Turbocalc
         private bool _first = true; // Determines first insertion into list
         private bool _pointNumber = false; // If point was entered
         private bool _rBracket = false;
+        private const int _displayMaxNumber = 35;
 
         /// <summary>
         /// Initialization
@@ -87,7 +88,7 @@ namespace Turbocalc
         /// </summary>
         private void FitInBox()
         {
-            if (_count < 12) _count++; // textBlock is not full yet
+            if (_count < _displayMaxNumber) _count++; // textBlock is not full yet
             else // too much content in textBlock
             {
                 string text = display.Text; // Temp string
@@ -351,7 +352,7 @@ namespace Turbocalc
         /// <param name="weight">Weight of operator</param>
         private void TurboFunc(string op, string opSym, int weight)
         {
-            if (_number[0] == "-" && _number[1] == null)
+            if (_number[0] == "-" && _number[1] == null) // 
             {
                 WriteHelp(op);
                 return;
@@ -377,7 +378,11 @@ namespace Turbocalc
                     }
                     else if (op == "abs")
                     {
-                        if (DataList.Last.Value.Operation == "" || DataList.Last.Value.Operation == "abs") return;
+                        if (DataList.Last.Value.Operation == "" || DataList.Last.Value.Operation == "abs")
+                        {
+                            WriteHelp(op);
+                            return;
+                        }
                         FitInBox();
                         display.Text += "a";
                         FitInBox();
@@ -397,6 +402,7 @@ namespace Turbocalc
                     else
                     {
                         WriteHelp(op);
+                        return;
                     }
                 }
                 else if (op == "minus")
@@ -604,6 +610,64 @@ namespace Turbocalc
         } // Button_rightBracket_Click()
 
         /// <summary>
+        /// Checks if number is with exponent, if is, the it is replaced by a*10^x notation
+        /// </summary>
+        /// <param name="number">number to check</param>
+        /// <returns></returns>
+        private bool WriteAsExp(double number)
+        { 
+            double exp = Math.Floor(Math.Log10(Math.Abs(number))); // exponent number
+            if (exp > 14) // Starts to display as aE+15
+            {
+                _bracketLevel++; // Highers bracket level, so number will count as whole
+                ResetCounter(ref _counter, ref _number);
+                string numberStr = number.ToString(CultureInfo.InvariantCulture); // Number as string
+                display.Text = "";
+                _count = 0;
+                while (numberStr[_counter] != 'E') // Numbers until E
+                {
+                    FitInBox();
+                    display.Text += numberStr[_counter].ToString();
+                    _number[_counter] = numberStr[_counter].ToString();
+                    _counter++;
+                }
+                if (DataList.First != null)
+                {
+                    DataList.RemoveFirst(); // Clears first node in list
+                }
+                int counter = _counter + 1; // New counter
+                int sign = counter; // Position of sign of exponent
+                _first = true;
+                TurboFunc("multiply", "x", 2); // Multiply
+                FitInBox();
+                // *10^
+                display.Text += "1";
+                _number[0] = "1";
+                FitInBox();
+                display.Text += "0";
+                _number[1] = "0";
+                TurboFunc("power", "^", 4);
+                _number[0] = null;
+                _number[1] = null;
+                while (counter < numberStr.Length) // Display exponent numbers
+                {
+                    if (counter != sign)
+                    {
+                        FitInBox();
+                        display.Text += numberStr[counter].ToString();
+                    }
+                    _number[_counter] = numberStr[counter].ToString();
+                    _counter++;
+                    counter++;
+                }
+                _bracketLevel--;
+
+                return true;
+            }
+            return false;
+        } // WriteAsExp()
+
+        /// <summary>
         /// Button = clicked, calculates result and writes it in display
         /// </summary>
         /// <param name="sender">Reference to object</param>
@@ -633,14 +697,19 @@ namespace Turbocalc
                             if (_pointer.Value.Operation != "")
                             {
                                 
-                                if (_max.Value.BracketLevel <= _pointer.Value.BracketLevel)
+                                if (_max.Value.BracketLevel < _pointer.Value.BracketLevel)
+                                {
+                                    _max = _pointer;
+                                }
+                                else if (_max.Value.BracketLevel == _pointer.Value.BracketLevel)
                                 {
                                     if (_max.Value.Weight < _pointer.Value.Weight)
                                     {
                                         _max = _pointer;
                                     }
                                 }
-                                
+
+
                             }
 
                             _pointer = _pointer.Next;
@@ -687,7 +756,16 @@ namespace Turbocalc
                                 }
                                 catch (Exception exception)
                                 {
-                                    warnings.Content = exception.Message + "\na^(1/n) -> a = " + a.ToString(CultureInfo.InvariantCulture) + "n = " + b.ToString(CultureInfo.InvariantCulture);
+                                    if (a == 0)
+                                    {
+                                        warnings.Content = "Nelze udělat nultou odmocninu z čísla.";
+                                    }
+
+                                    if (a % 2 == 0 && b < 0)
+                                    {
+                                        warnings.Content = "Nelze udělat sudou odmocninu ze záporného čísla.";
+                                    }
+                                    warnings.Content += "\na^(1/n) -> a = " + a.ToString(CultureInfo.InvariantCulture) + ", n = " + b.ToString(CultureInfo.InvariantCulture);
                                     end = true;
                                     Clear_Click(sender, e);
                                 }
@@ -755,26 +833,32 @@ namespace Turbocalc
                 return;
             }
             if (end) return;
+
+            if (DataList.First != null)
+            {
+                if (WriteAsExp(DataList.First.Value.Number)) return;
+            }
+
             // Tidying after operation
             _count = display.Text.Length; // How many characters are displayed
             ResetCounter(ref _counter, ref _number);
             string text = display.Text;
             display.Text = "";
-            if (_count > 12) // Doesn't fit in display
+            if (_count > _displayMaxNumber) // Doesn't fit in display
             {
-                for (int i = 0; i < 11; i++) // Trims text
+                for (int i = 0; i < _displayMaxNumber-1; i++) // Trims text
                 {
                     display.Text += text[i].ToString();
                     _number[i] = text[i].ToString();
                 }
 
-                int value = text[11] - '0';
-                if (text[12] >= '5') value++; // Rounding up
+                int value = text[_displayMaxNumber-1] - '0';
+                if (text[_displayMaxNumber] >= '5') value++; // Rounding up
 
                 display.Text += value.ToString();
-                _number[11] = value.ToString();
+                _number[_displayMaxNumber-1] = value.ToString();
                 
-                _count = 12;
+                _count = _displayMaxNumber;
             }
             else
             {
@@ -790,6 +874,11 @@ namespace Turbocalc
                 DataList.RemoveFirst(); // Clears first node in list
             }
             _first = true; // First value will be entered
+            if (_bracketLevel != 30)
+            {
+                WriteHelp("pair");
+                _bracketLevel = 30;
+            }
         } // Button_calculate_Click()
 
         /// <summary>
@@ -814,14 +903,6 @@ namespace Turbocalc
             if (e.Key == Key.OemComma) // point
             {
                 Button_point_Click(sender, e);
-            }
-            if (e.Key == Key.OemOpenBrackets) // (
-            {
-                Button_leftBracket_Click(sender, e);
-            }
-            if (e.Key == Key.OemCloseBrackets) // )
-            {
-                Button_rightBracket_Click(sender, e);
             }
             if (e.Key == Key.Enter) // enter, serves as =
             {
