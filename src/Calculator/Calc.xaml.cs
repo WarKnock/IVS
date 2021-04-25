@@ -109,46 +109,46 @@ namespace Turbocalc
             switch (choice)
             {
                 case "plus":
-                    warnings.Content = "Použití operátoru + :\n\tčíslo + číslo";
+                    warnings.Content = "Použití operátoru + :\n\ta + b";
                     break;
                 case "minus":
-                    warnings.Content = "Použití operátoru - :\n\tčíslo - číslo\n\t-číslo";
+                    warnings.Content = "Použití operátoru - :\n\ta - b ; -n";
                     break;
                 case "divide":
-                    warnings.Content = "Použití operátoru ÷ :\n\tčíslo ÷ číslo";
+                    warnings.Content = "Použití operátoru ÷ :\n\ta ÷ b";
                     break;
                 case "multiply":
-                    warnings.Content = "Použití operátoru x :\n\tčíslo x číslo";
+                    warnings.Content = "Použití operátoru x :\n\ta x b";
                     break;
                 case "power":
                     warnings.Content = "Použití operátoru xⁿ :\n\tčíslo(x) ^ exponent(n)";
                     break;
                 case "root":
-                    warnings.Content = "Použití operátoru + :\n\tčíslo √ číslo\n\t√ číslo -> druhá odmocnina";
+                    warnings.Content = "Použití operátoru √ : a√b\na -> implicitne = 2 -> druhá odmocnina";
                     break;
                 case "factorial":
-                    warnings.Content = "Použití operátoru ! :\n\tčíslo !";
+                    warnings.Content = "Použití operátoru ! : a!";
                     break;
                 case "abs":
-                    warnings.Content = "Použití operátoru abs :\n\tabs číslo\n\tabs ( výpočet )";
+                    warnings.Content = "Použití operátoru abs : abs(x)\n\tabs ( výpočet )";
                     break;
                 case "mod":
-                    warnings.Content = "Použití operátoru mod :\n\tčíslo % číslo";
+                    warnings.Content = "Použití operátoru mod :\n\ta % b";
                     break;
                 case "point":
-                    warnings.Content = "Použití desetinné čárky(tečky) :\n\tčíslo , číslo\nPři nezadání 1. čísla bude doplněna 0 před";
+                    warnings.Content = "Použití desetinné čárky(tečky) : a,b\nPři nezadání čísla a bude doplněna 0 před";
                     break;
                 case "lBracket":
-                    warnings.Content = "Použití ( :\n\toperátor ( číslo";
+                    warnings.Content = "Použití ( :\n\toperátor ( výraz";
                     break;
                 case "rBracket":
-                    warnings.Content = "Použití ) :\n\tčíslo ) operátor";
+                    warnings.Content = "Použití ) :\n\tvýraz ) operátor";
                     break;
                 case "pair":
-                    warnings.Content = "Některé závorky nebyly řádně ukončeny.\n Chybějící závorky byly doplněny\npřed a za příklad.";
+                    warnings.Content = "Některé závorky nebyly řádně ukončeny.\nChybějící závorky byly doplněny před a za příklad.";
                     break;
                 case "equal":
-                    warnings.Content = "Použití = :\n\tčíslo =";
+                    warnings.Content = "Použití = :\n\tvýraz =";
                     break;
             }
         } // WriteHelp()
@@ -352,29 +352,29 @@ namespace Turbocalc
         /// <param name="weight">Weight of operator</param>
         private void TurboFunc(string op, string opSym, int weight)
         {
-            if (_number[0] == "-" && _number[1] == null) // 
-            {
-                WriteHelp(op);
+            if (_number[0] == "-" && _number[1] == null) // if the expression starts with "-"
+            {                                            // and isn't followed by a number
+                WriteHelp(op);                           // Write Help for op
                 return;
             }
 
 
-            if (_number[0] == null)
+            if (_number[0] == null)// start of expression
             {
-                if (DataList.Last != null)
+                if (DataList.Last != null)// check if datalist is unempty (some operators can't be first)
                 {
-                    if (DataList.Last.Value.Operation == "factorial")
+                    if (DataList.Last.Value.Operation == "factorial") 
                     {
                         FitInBox();
-                        DataList.AddLast(new Data(0, op, weight, _bracketLevel));
+                        DataList.AddLast(new Data(0, op, weight, _bracketLevel)); // every operation is represented by "0"
                         display.Text += opSym;
                     }
                     else if (op == "minus")
                     {
                         FitInBox();
-                        display.Text += opSym;
-                        _number[_counter] = opSym;
-                        _counter++;
+                        display.Text += opSym;      // writes text on display
+                        _number[_counter] = opSym;  // adds operand to string
+                        _counter++;                 
                     }
                     else if (op == "abs")
                     {
@@ -384,19 +384,19 @@ namespace Turbocalc
                             return;
                         }
                         FitInBox();
-                        display.Text += "a";
+                        display.Text += "a"; 
                         FitInBox();
                         display.Text += "b";
                         FitInBox();
                         display.Text += "s";
                         DataList.AddLast(new Data(0, op, weight, _bracketLevel));
-                        _first = false;
+                        _first = false; // checks if operator is first
                     }
                     else if (op == "root")
                     {
                         FitInBox();
                         display.Text += opSym;
-                        DataList.AddLast(new Data(2));
+                        DataList.AddLast(new Data(2)); // implicit root is of 2
                         DataList.AddLast(new Data(0, op, weight, _bracketLevel));
                     }
                     else
@@ -450,8 +450,8 @@ namespace Turbocalc
                     return;
                 }
 
-                _pointNumber = false;
-                _rBracket = false;
+                _pointNumber = false; // resets decimal number
+                _rBracket = false;    // resets closing bracket
                 warnings.Content = "";
                 return;
             }
@@ -462,7 +462,7 @@ namespace Turbocalc
                 return;
             }
             FitInBox();
-            display.Text += opSym;
+            display.Text += opSym; // for any other operator
             if (_first) // Adds head to list
             {
                 _head = DataList.AddFirst(new Data(Convert.ToDouble(string.Concat(_number).Replace('.', ','))));
@@ -757,15 +757,11 @@ namespace Turbocalc
                                 catch (Exception exception)
                                 {
                                     if (a == 0)
-                                    {
-                                        warnings.Content = "Nelze udělat nultou odmocninu z čísla.";
-                                    }
+                                        warnings.Content = "Nelze udělat nultou odmocninu z čísla";
+                                    if (a%2 == 0 && b < 0)
+                                        warnings.Content = "Nelze udělat sudou odmocninu ze zapornégo čísla";
 
-                                    if (a % 2 == 0 && b < 0)
-                                    {
-                                        warnings.Content = "Nelze udělat sudou odmocninu ze záporného čísla.";
-                                    }
-                                    warnings.Content += "\na^(1/n) -> a = " + a.ToString(CultureInfo.InvariantCulture) + ", n = " + b.ToString(CultureInfo.InvariantCulture);
+                                    warnings.Content +=  "\na^(1/n) -> a = " + a.ToString(CultureInfo.InvariantCulture) + ", n = " + b.ToString(CultureInfo.InvariantCulture);
                                     end = true;
                                     Clear_Click(sender, e);
                                 }
@@ -874,10 +870,10 @@ namespace Turbocalc
                 DataList.RemoveFirst(); // Clears first node in list
             }
             _first = true; // First value will be entered
-            if (_bracketLevel != 30)
+            if (_bracketLevel != 30) 
             {
-                WriteHelp("pair");
                 _bracketLevel = 30;
+                WriteHelp("pair");
             }
         } // Button_calculate_Click()
 
