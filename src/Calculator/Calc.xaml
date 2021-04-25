@@ -6,11 +6,14 @@
         xmlns:local="clr-namespace:Turbocalc"
         KeyDown="Key_press"
         mc:Ignorable="d"
-        Title="Calc" Height="453" Width="290">
-    <Grid x:Name="Numbers_Grid" Margin="0,0,0,0" Background="#FFDADADA" HorizontalAlignment="Stretch">
+        Window.ResizeMode="NoResize"
+        Height="444"
+        Width="288"
+        Title="Calc">
+    <Grid x:Name="Numbers_Grid" Background="#FFDADADA" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,5,5" >
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
-            <RowDefinition Height="100*"/>
+            <RowDefinition Height="103*"/>
             <RowDefinition Height="294*"/>
         </Grid.RowDefinitions>
         <Button x:Name="Button_6" Content="_6" HorizontalAlignment="Left" Height="47" Margin="109,159,0,0" VerticalAlignment="Top" Width="47" FontFamily="Arial" FontSize="36" Grid.Row="2" Background="#FFA0A0A0" BorderBrush="#FF515151" Click="Button_6_Click" Focusable="False"/>
