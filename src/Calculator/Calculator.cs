@@ -25,7 +25,7 @@ namespace Turbocalc
         /// <returns>Returns the sum of the two numbers</returns>
         public static double Add(double a, double b)
         {
-            return (double)((decimal)a + (decimal)b);
+            return a + b;
         } // Add()
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Turbocalc
         /// <returns>a - b</returns>
         public static double Subtract(double a, double b)
         {
-            return (double)((decimal)a - (decimal)b);
+            return (a - b);
         } // Subtract()
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Turbocalc
         {
             if(b == 0) //Division by zero
                 throw new ArgumentException("Division by zero.");
-            return (double)((decimal)a / (decimal)b);
+            return a / b;
         } // Divide()
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Turbocalc
         /// <returns>Returns the product of the two numbers</returns>
         public static double Multiply(double a, double b)
         {
-            return (double)((decimal)a * (decimal)b);
+            return a * b;
         } // Multiply()
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Turbocalc
         /// <returns>Returns the base to the power of exponent</returns>
         public static double Power(double x, int n)
         {
-            decimal sum = 1;
+            double sum = 1;
             bool negative = false;
 
             if (n == 0) //Exponent is 0
@@ -82,9 +82,9 @@ namespace Turbocalc
                 throw new ArgumentException("Division by zero.");
 
             for (int i = 0; i < (negative ? -n : n); i++)
-                sum *= (decimal)x;
+                sum *= x;
 
-            return negative ? (double)(1/sum) : (double)sum;
+            return negative ? (1/sum) : sum;
         } // Power()
 
         /// <summary>
@@ -143,10 +143,10 @@ namespace Turbocalc
             if (b == 0) //Division by zero
                 throw new ArgumentException("Division by zero.");
 
-            decimal mod = (decimal)a % (decimal)b;
+            double mod = a % b;
             if (mod < 0) //Mod definition is different for negative numbers
-                mod = (b < 0) ? mod - (decimal)b : mod + (decimal)b;
-            return (double)mod;
+                mod = (b < 0) ? mod - b : mod + b;
+            return mod;
         } // Mod()
 
         /// <summary> 
