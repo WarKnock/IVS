@@ -621,75 +621,6 @@ namespace Turbocalc
         } // Button_rightBracket_Click()
 
         /// <summary>
-        /// Checks if number is with exponent, if is, the it is replaced by a*10^x notation
-        /// </summary>
-        /// <param name="number">number to check</param>
-        /// <returns></returns>
-        private bool WriteAsExp(double number)
-        { 
-            double exp = Math.Floor(Math.Log10(Math.Abs(number))); // exponent number
-            if (exp > 14) // Starts to display as aE+15
-            {
-               
-                ResetCounter(ref _counter, ref _number);
-                string numberStr = number.ToString(CultureInfo.InvariantCulture); // Number as string
-
-                _count = 0;
-                while (numberStr[_counter] != 'E') // Checks if E is in string
-                {
-                    _counter++;
-                    if (_counter >= numberStr.Length)
-                    {
-                        return false;
-                    }
-                }
-                display.Text = "";
-                _bracketLevel++; // Highers bracket level, so number will count as whole
-                _counter = 0;
-                while (numberStr[_counter] != 'E') // Numbers until E
-                {
-                    FitInBox();
-                    display.Text += numberStr[_counter].ToString();
-                    _number[_counter] = numberStr[_counter].ToString();
-                    _counter++;
-                }
-                if (DataList.First != null)
-                {
-                    DataList.RemoveFirst(); // Clears first node in list
-                }
-                int counter = _counter + 1; // New counter
-                int sign = counter; // Position of sign of exponent
-                _first = true;
-                TurboFunc("multiply", "x", 2); // Multiply
-                FitInBox();
-                // *10^
-                display.Text += "1";
-                _number[0] = "1";
-                FitInBox();
-                display.Text += "0";
-                _number[1] = "0";
-                TurboFunc("power", "^", 4);
-                _number[0] = null;
-                _number[1] = null;
-                while (counter < numberStr.Length) // Display exponent numbers
-                {
-                    if (counter != sign)
-                    {
-                        FitInBox();
-                        display.Text += numberStr[counter].ToString();
-                    }
-                    _number[_counter] = numberStr[counter].ToString();
-                    _counter++;
-                    counter++;
-                }
-                _bracketLevel--;
-
-                return true;
-            }
-            return false;
-        } // WriteAsExp()
-
-        /// <summary>
         /// Button = clicked, calculates result and writes it in display
         /// </summary>
         /// <param name="sender">Reference to object</param>
@@ -945,11 +876,6 @@ namespace Turbocalc
                 return;
             }
             if (end) return;
-
-            if (DataList.First != null)
-            {
-                if (WriteAsExp(DataList.First.Value.Number)) return;
-            }
 
             // Tidying after operation
             _count = display.Text.Length; // How many characters are displayed
