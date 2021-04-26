@@ -9,7 +9,7 @@
         Window.ResizeMode="NoResize"
         Height="444"
         Width="288"
-        Title="Calc">
+        Title="Turbocalc">
     <Grid x:Name="Numbers_Grid" Background="#FFDADADA" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,5,5" >
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
