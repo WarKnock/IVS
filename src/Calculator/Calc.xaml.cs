@@ -150,6 +150,12 @@ namespace Turbocalc
                 case "equal":
                     warnings.Content = "Použití = :\n\tvýraz =";
                     break;
+                case "tooLong":
+                    warnings.Content = "Zadané číslo je příliš dlouhé.\nMaximální počet znaků v čísle je 100.";
+                    break;
+                case "outOfDouble":
+                    warnings.Content = "Výsledek daného příkladu je příliš velký.\nTak velké čísla turbocalc nepodporuje.";
+                    break;
             }
         } // WriteHelp()
 
@@ -162,6 +168,11 @@ namespace Turbocalc
             if (_rBracket) // number can't be after ) -> 1)7 cause it will result in storing number 17
             {
                 WriteHelp("rBracket");
+                return;
+            }
+            if (_counter >= 100)
+            {
+                WriteHelp("tooLong");
                 return;
             }
             if ((_counter == 1) && (_number[0] == "0"))
@@ -619,11 +630,22 @@ namespace Turbocalc
             double exp = Math.Floor(Math.Log10(Math.Abs(number))); // exponent number
             if (exp > 14) // Starts to display as aE+15
             {
-                _bracketLevel++; // Highers bracket level, so number will count as whole
+               
                 ResetCounter(ref _counter, ref _number);
                 string numberStr = number.ToString(CultureInfo.InvariantCulture); // Number as string
-                display.Text = "";
+
                 _count = 0;
+                while (numberStr[_counter] != 'E') // Checks if E is in string
+                {
+                    _counter++;
+                    if (_counter >= exp)
+                    {
+                        return false;
+                    }
+                }
+                display.Text = "";
+                _bracketLevel++; // Highers bracket level, so number will count as whole
+                _counter = 0;
                 while (numberStr[_counter] != 'E') // Numbers until E
                 {
                     FitInBox();
@@ -723,76 +745,170 @@ namespace Turbocalc
                         {
                             b = _max.Next.Value.Number;
                         }
+
                         switch (_max.Value.Operation) // Decides what to do
                         {
                             case "plus":
-                                DataList.AddBefore(_max.Previous, new Data(Calculator.Add(a,b))); // Adds new node with result
+                                try
+                                {
+                                    DataList.AddBefore(_max.Previous,
+                                        new Data(Calculator.Add(a, b))); // Adds new node with result
+                                }
+                                catch (Exception exception)
+                                {
+                                    WriteHelp("outOfDouble");
+                                    end = true;
+                                    Clear_Click(sender, e);
+                                }
                                 break;
                             case "minus":
-                                DataList.AddBefore(_max.Previous, new Data(Calculator.Subtract(a, b))); // Adds new node with result
+                                try
+                                {
+                                    DataList.AddBefore(_max.Previous,
+                                        new Data(Calculator.Subtract(a, b))); // Adds new node with result
+                                }
+                                catch (Exception exception)
+                                {
+                                    WriteHelp("outOfDouble");
+                                    end = true;
+                                    Clear_Click(sender, e);
+                                }
                                 break;
                             case "divide":
                                 try
                                 {
-                                    DataList.AddBefore(_max.Previous, new Data(Calculator.Divide(a, b))); // Adds new node with result
+                                    DataList.AddBefore(_max.Previous,
+                                        new Data(Calculator.Divide(a, b))); // Adds new node with result
                                 }
                                 catch (Exception exception)
                                 {
-                                    warnings.Content = "Nastalo dělení nulou.\na/b -> a = " + a.ToString(CultureInfo.InvariantCulture) +", b = " + b.ToString(CultureInfo.InvariantCulture);
+                                    if (b == 0)
+                                    {
+                                        warnings.Content = "Nastalo dělení nulou.\na/b -> a = " +
+                                                           a.ToString(CultureInfo.InvariantCulture) + ", b = " +
+                                                           b.ToString(CultureInfo.InvariantCulture);
+                                    }
+                                    else
+                                    {
+                                        WriteHelp("outOfDouble");
+                                    }
+                                    
                                     end = true;
                                     Clear_Click(sender, e);
                                 }
                                 break;
                             case "multiply":
-                                DataList.AddBefore(_max.Previous, new Data(Calculator.Multiply(a, b))); // Adds new node with result
+                                try
+                                {
+                                    DataList.AddBefore(_max.Previous,
+                                        new Data(Calculator.Multiply(a, b))); // Adds new node with result
+                                    
+                                }
+                                catch (Exception exception)
+                                {
+                                    WriteHelp("outOfDouble");
+                                    end = true;
+                                    Clear_Click(sender, e);
+                                }
                                 break;
                             case "power":
-                                DataList.AddBefore(_max.Previous, new Data(Calculator.Power(a, (int)b))); // Adds new node with result
+                                try
+                                {
+
+                                    DataList.AddBefore(_max.Previous,
+                                        new Data(Calculator.Power(a, (int) b))); // Adds new node with result
+                                }
+                                catch (Exception exception)
+                                {
+                                    WriteHelp("outOfDouble");
+                                    end = true;
+                                    Clear_Click(sender, e);
+                                }
+
                                 break;
                             case "root":
                                 try
                                 {
-                                    DataList.AddBefore(_max.Previous, new Data(Calculator.Root(b, (int)a))); // Adds new node with result
+                                    DataList.AddBefore(_max.Previous,
+                                        new Data(Calculator.Root(b, (int) a))); // Adds new node with result
                                 }
                                 catch (Exception exception)
                                 {
                                     if (a == 0)
                                         warnings.Content = "Nelze udělat nultou odmocninu z čísla";
-                                    if (a%2 == 0 && b < 0)
+                                    else if (a % 2 == 0 && b < 0)
                                         warnings.Content = "Nelze udělat sudou odmocninu ze zapornégo čísla";
-
-                                    warnings.Content +=  "\na^(1/n) -> a = " + a.ToString(CultureInfo.InvariantCulture) + ", n = " + b.ToString(CultureInfo.InvariantCulture);
+                                    else
+                                    {
+                                        WriteHelp("outOfDouble");
+                                        end = true;
+                                        Clear_Click(sender, e);
+                                        break;
+                                    }
+                                    
+                                    warnings.Content += "\na^(1/n) -> a = " +
+                                                        a.ToString(CultureInfo.InvariantCulture) + ", n = " +
+                                                        b.ToString(CultureInfo.InvariantCulture);
                                     end = true;
                                     Clear_Click(sender, e);
                                 }
+
                                 break;
                             case "factorial":
                                 if (Calculator.Factorial((int) a) == -1)
                                 {
-                                    warnings.Content = "Nelze udělat faktoriál ze záporného čísla.\na! -> a = " + ((int)a).ToString(CultureInfo.InvariantCulture);
+                                    warnings.Content = "Nelze udělat faktoriál ze záporného čísla.\na! -> a = " +
+                                                       ((int) a).ToString(CultureInfo.InvariantCulture);
                                     end = true;
                                     Clear_Click(sender, e);
                                     break;
                                 }
-                                DataList.AddBefore(_max.Previous, new Data(Calculator.Factorial((int)a))); // Adds new node with result
+
+                                try
+                                {
+                                    DataList.AddBefore(_max.Previous,
+                                        new Data(Calculator.Factorial((int)a))); // Adds new node with result
+                                }
+                                catch (Exception exception)
+                                {
+                                    WriteHelp("outOfDouble");
+                                    end = true;
+                                    Clear_Click(sender, e);
+                                }
+
                                 break;
                             case "mod":
                                 try
                                 {
-                                    DataList.AddBefore(_max.Previous, new Data(Calculator.Mod(a, b))); // Adds new node with result
+                                    DataList.AddBefore(_max.Previous,
+                                        new Data(Calculator.Mod(a, b))); // Adds new node with result
 
                                 }
                                 catch (Exception exception)
                                 {
-                                    warnings.Content = "Nastalo dělení nulou.\na%b -> a = " + a.ToString(CultureInfo.InvariantCulture) + ", b = " + b.ToString(CultureInfo.InvariantCulture);
+                                    if (b != 0)
+                                    {
+                                        
+                                            WriteHelp("outOfDouble");
+                                            end = true;
+                                            Clear_Click(sender, e);
+                                            break;
+                                    }
+
+                                    warnings.Content = "Nastalo dělení nulou.\na%b -> a = " +
+                                                       a.ToString(CultureInfo.InvariantCulture) + ", b = " +
+                                                       b.ToString(CultureInfo.InvariantCulture);
                                     end = true;
                                     Clear_Click(sender, e);
                                 }
+
                                 break;
                             case "abs":
                                 DataList.AddBefore(_max, new Data(Calculator.Abs(b))); // Adds new node with result
                                 break;
                         }
+                        
+                        
 
                         if (end) break;
                         _head = DataList.First; // New head
@@ -915,10 +1031,6 @@ namespace Turbocalc
             if (e.Key == Key.A) // Temporary
             {
                 Button_abs_Click(sender, e);
-            }
-            if (e.Key == Key.M) // Temporary
-            {
-                Button_mod_Click(sender, e);
             }
         } // Key_press()
 
