@@ -638,7 +638,7 @@ namespace Turbocalc
                 while (numberStr[_counter] != 'E') // Checks if E is in string
                 {
                     _counter++;
-                    if (_counter >= exp)
+                    if (_counter >= numberStr.Length)
                     {
                         return false;
                     }
