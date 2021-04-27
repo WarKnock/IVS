@@ -1,0 +1,9 @@
+Ve prvních třech případech strávil program nejvíce času voláním funkce na výpočet odmocniny.
+Toto odpovídá i implementaci této funkce, protože sama volá funkci na umocňování.
+Při větším počtu vstupů strávil program nejvíce času voláním funkcí na sčítání a umocňování.
+Toto je způsobeno větším výskytem těchto operací při výpočtu směrodatné odchylky.
+
+Při profilování s 10, 100 a 1000 vstupy je čas stráven u jednotlivých funkcí velice podobný.
+Při profilování s 10000 a 100000 vstupy se zvyšuje strávený čas především u funkcí na sčítání a umocňování.
+
+Pro optimalizaci bychom se měli věnovat hlavně funkcím na výpočet odmocniny a umocňování.
