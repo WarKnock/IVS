@@ -365,7 +365,25 @@ namespace Turbocalc
         {
             if (_number[0] == "-" && _number[1] == null) // if the expression starts with "-"
             {                                            // and isn't followed by a number
-                WriteHelp(op);                           // Write Help for op
+                if (op == "abs") // - abs
+                {
+                    NumberClicked("1");
+                    _bracketLevel++;
+                    TurboFunc("multiply", "x", 2);
+                    TurboFunc("abs", "abs", 5);
+                    _bracketLevel--;
+                    return;
+                }
+                if (op == "root") // - root
+                {
+                    NumberClicked("1");
+                    _bracketLevel++;
+                    TurboFunc("multiply", "x", 2);
+                    TurboFunc("root", "√", 3);
+                    _bracketLevel--;
+                    return;
+                }
+                WriteHelp(op); // Write Help for op
                 return;
             }
 
@@ -590,6 +608,14 @@ namespace Turbocalc
         {
             if (_number[0] == null)
             {
+                FitInBox();
+                display.Text += "(";
+                _bracketLevel++;
+            }
+            else if (_number[0] == "-" && _number[1] == null) // - (
+            {
+                NumberClicked("1");
+                TurboFunc("multiply", "x", 2);
                 FitInBox();
                 display.Text += "(";
                 _bracketLevel++;
