@@ -655,8 +655,20 @@ namespace Turbocalc
         {
             if (_number[0] == null)
             {
-                WriteHelp("equal");
-                return;
+                if (DataList.Last != null)
+                {
+                    if (DataList.Last.Value.Operation != "factorial")
+                    {
+                        WriteHelp("equal");
+                        return;
+                    }
+                }
+                else
+                {
+                    WriteHelp("equal");
+                    return;
+                }
+
             }
             bool end = false;
             if (_number[0] != null || DataList.Last.Value.Operation == "factorial")
