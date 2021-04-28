@@ -653,6 +653,11 @@ namespace Turbocalc
         /// <param name="e">Event data associated with a routed event</param>
         private void Button_calculate_Click(object sender, RoutedEventArgs e)
         {
+            if (_number[0] == null)
+            {
+                WriteHelp("equal");
+                return;
+            }
             bool end = false;
             if (_number[0] != null || DataList.Last.Value.Operation == "factorial")
             {
@@ -896,11 +901,7 @@ namespace Turbocalc
                     }
                 }
             }
-            else
-            {
-                WriteHelp("equal");
-                return;
-            }
+            
             if (end) return;
 
             // Tidying after operation
