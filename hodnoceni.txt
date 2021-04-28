@@ -1,4 +1,4 @@
-xlogin01 100 (základ GUI a základní mat. operace)
-xlogin02 100 (pokročilé mat. operace)
-xlogin03 90 (profiling, instalátor)
-xlogin04 110 (testy, dokumentace)
+xbarto0e 101	(Matematická knihovna, Dokumentace Doxygen, Mockup)
+xchudy06 95 	(Organizace týmu, Testy, Refaktorizace, Dokumentace pro uživatele)
+xkurti03 121	(Testy, Propojení GUI a Mat. knihovny, Chybové zprávy, Instalátor)
+xvarte00 83	(Readme, Založení projektu, GUI, Profiler, Makefile)

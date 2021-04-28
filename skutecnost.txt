@@ -1,1 +1,5 @@
-tento soubor bude obsahovat rozdil mezi planem projektu a skutecnosti
+- Stanovené Termíny jsme ze začátku úspěšně dodržovali (spousta věcí byla hotova 1-2 dny dopředu)
+- Ke konci se některé termíny dosti posunuly (Instalátor a Makefile)
+- Posunutí bylo způsobeno dotvářením GUI a logiky aplikace, tak aby fungovala
+- Naplánování i tak bylo celkem přesné a měsíc nám na vytvoření aplikace a všeho okolo stačil
+- Jednotlivé úkoly jsme si dle potřeby prohodili, takže vývoj tak pokračoval plynuleji, než kdyby jsme se striktně drželi rozvržení
