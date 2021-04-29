@@ -1,4 +1,4 @@
-xbarto0e 101	(Matematická knihovna, Dokumentace Doxygen, Mockup)
-xchudy06 95 	(Organizace týmu, Testy, Refaktorizace, Dokumentace pro uživatele)
-xkurti03 121	(Testy, Propojení GUI a Mat. knihovny, Chybové zprávy, Instalátor)
-xvarte00 83	(Readme, Založení projektu, GUI, Profiler, Makefile)
+xbarto0e 100 (Matematická knihovna, Dokumentace Doxygen, Mockup)
+xchudy06 95 (Organizace týmu, Testy, Refaktorizace, Dokumentace pro uživatele)
+xkurti03 120 (Testy, Propojení GUI a Mat. knihovny, Chybové zprávy, Instalátor)
+xvarte00 85 (Readme, Založení projektu, GUI, Profiler, Makefile)
