@@ -33,14 +33,15 @@ build-profiling:
 	dotnet build $(PROFILING_PROJ)\$(PROFILING_PROJ).csproj
 
 pack: clean
-	
-	@mkdir ..\$(PACKAGE)\doc
-	@mkdir ..\$(PACKAGE)\install
-	@mkdir ..\$(PACKAGE)\repo
-	@xcopy ..\..\$(DOC) ..\$(PACKAGE)\doc /E
-	@xcopy ..\$(SRC) ..\$(PACKAGE)\repo /E
-	@xcopy ..\..\$(INSTALL) ..\$(PACKAGE)\repo /E
-	@cd ..\ && tar -c -f $(PACKAGE).zip $(PACKAGE)
+
+	@mkdir ..\..\$(PACKAGE)
+	@mkdir ..\..\$(PACKAGE)\doc
+	@mkdir ..\..\$(PACKAGE)\install
+	@mkdir ..\..\$(PACKAGE)\repo
+	@xcopy ..\..\$(DOC)  ..\..\$(PACKAGE)\doc /E
+	@xcopy ..\..\repo  ..\..\$(PACKAGE)\repo /E
+	@xcopy ..\..\$(INSTALL)  ..\..\$(PACKAGE)\install /E
+	@cd ..\..\ && tar -c -f $(PACKAGE).zip $(PACKAGE)
 help:
 	@echo "In order to run this program you need .NET core installed"
 	@echo "Commands for make:"
@@ -51,10 +52,10 @@ help:
 	@echo "clean - Cleanses all unnecessary files for clean build"
 	
 clean:
-	@if exist ..\$(PACKAGE) rmdir /Q /S ..\$(PACKAGE)
-	@rmdir /Q /S "$(CALC_PROJ)\$(BIN)"
-	@rmdir /Q /S "$(CALC_PROJ)\$(OBJ)"
-	@rmdir /Q /S "$(TESTS_PROJ)\$(BIN)"
-	@rmdir /Q /S "$(TESTS_PROJ)\$(OBJ)"
-	@rmdir /Q /S "$(PROFILING_PROJ)\$(BIN)"
-	@rmdir /Q /S "$(PROFILING_PROJ)\$(OBJ)"
+	@if exist ..\..\$(PACKAGE) rmdir /Q /S ..\..\$(PACKAGE)
+	@if exist "$(CALC_PROJ)\$(BIN)" rmdir /Q /S "$(CALC_PROJ)\$(BIN)"
+	@if exist "$(CALC_PROJ)\$(OBJ)" rmdir  /Q /S "$(CALC_PROJ)\$(OBJ)"
+	@if exist "$(TESTS_PROJ)\$(BIN)" rmdir /Q /S "$(TESTS_PROJ)\$(BIN)"
+	@if exist "$(TESTS_PROJ)\$(OBJ)" rmdir /Q /S "$(TESTS_PROJ)\$(OBJ)"
+	@if exist "$(PROFILING_PROJ)\$(BIN)" rmdir /Q /S "$(PROFILING_PROJ)\$(BIN)"
+	@if exist "$(PROFILING_PROJ)\$(OBJ)" rmdir /Q /S "$(PROFILING_PROJ)\$(OBJ)"
