@@ -793,10 +793,24 @@ namespace Turbocalc
                                         new Data(Calculator.Power(a, (int) b))); // Adds new node with result
                                 }
                                 catch (Exception exception)
-                                {
-                                    WriteHelp("outOfDouble");
+                                { 
+                                    if (a == 0 && b < 0)
+                                        warnings.Content = "Nastalo delenie nulou. Ak x = 0, tak n musí byť\nnezáporné. ";
+                                    else
+                                    {
+                                        WriteHelp("outOfDouble");
+                                        end = true;
+                                        Clear_Click(sender, e);
+                                        break;
+                                    }
+
+                                    warnings.Content += a.ToString(CultureInfo.InvariantCulture) + "^(" +
+                                                        b.ToString(CultureInfo.InvariantCulture) + ")";
+                                    warnings.Content += " 1/(" + a.ToString(CultureInfo.InvariantCulture) + "^" +
+                                                        (-b).ToString(CultureInfo.InvariantCulture) + ") -> 1/0";
+                                                        
                                     end = true;
-                                    Clear_Click(sender, e);
+                                   Clear_Click(sender, e);
                                 }
 
                                 break;
@@ -804,14 +818,34 @@ namespace Turbocalc
                                 try
                                 {
                                     DataList.AddBefore(_max.Previous,
-                                        new Data(Calculator.Root(b, (int) a))); // Adds new node with result
+                                        new Data(Calculator.Root(b, (int)a))); // Adds new node with result
                                 }
                                 catch (Exception exception)
                                 {
                                     if (a == 0)
-                                        warnings.Content = "Nelze udělat nultou odmocninu z čísla";
+                                    {
+                                        warnings.Content = "Nelze udělat nultou odmocninu z čísla.";
+                                        warnings.Content += "\n0√" + b.ToString(CultureInfo.InvariantCulture) + "- > " + b.ToString(CultureInfo.InvariantCulture) + "^(x/" +
+                                                            (a).ToString(CultureInfo.InvariantCulture)+ ") - > Nula v menovateli exponentu.";
+                                    }
                                     else if (a % 2 == 0 && b < 0)
-                                        warnings.Content = "Nelze udělat sudou odmocninu ze zapornégo čísla";
+                                    {
+                                        warnings.Content = "Nelze udělat sudou odmocninu ze zaporného čísla.";
+                                        warnings.Content += "\n" + a.ToString(CultureInfo.InvariantCulture) + "√" +
+                                                            b.ToString(CultureInfo.InvariantCulture);
+                                    }
+                                        
+                                    else if (b == 0 && a < 0)
+                                    {
+                                        warnings.Content = "Nastalo delenie nulou";
+                                        warnings.Content += "\n" + a.ToString(CultureInfo.InvariantCulture) + "√" +
+                                                            b.ToString(CultureInfo.InvariantCulture);
+                                        warnings.Content += " = " + b.ToString(CultureInfo.InvariantCulture) + "^(" +
+                                                            a.ToString(CultureInfo.InvariantCulture) + ")";
+                                        warnings.Content += " = 1/(" + b.ToString(CultureInfo.InvariantCulture) + "^" +
+                                                                    (-a).ToString(CultureInfo.InvariantCulture) + ") = 1/0";
+                                    }
+
                                     else
                                     {
                                         WriteHelp("outOfDouble");
@@ -820,9 +854,6 @@ namespace Turbocalc
                                         break;
                                     }
                                     
-                                    warnings.Content += "\na^(1/n) -> a = " +
-                                                        a.ToString(CultureInfo.InvariantCulture) + ", n = " +
-                                                        b.ToString(CultureInfo.InvariantCulture);
                                     end = true;
                                     Clear_Click(sender, e);
                                 }
@@ -860,18 +891,25 @@ namespace Turbocalc
                                 }
                                 catch (Exception exception)
                                 {
-                                    if (b != 0)
+                                    if (b == 0)
                                     {
-                                        
-                                            WriteHelp("outOfDouble");
-                                            end = true;
-                                            Clear_Click(sender, e);
-                                            break;
+                                        warnings.Content += "Nastalo dělení nulou.";
+                                    }
+                                    if (a != (int)a || b != (int)b)
+                                    {
+                                        warnings.Content = "Operandy môžu byť len celé čísla";
+                                    }
+                                    else
+                                    {
+                                        WriteHelp("outOfDouble");
+                                        end = true;
+                                        Clear_Click(sender, e);
+                                        break;
                                     }
 
-                                    warnings.Content = "Nastalo dělení nulou.\na%b -> a = " +
-                                                       a.ToString(CultureInfo.InvariantCulture) + ", b = " +
-                                                       b.ToString(CultureInfo.InvariantCulture);
+                                    warnings.Content += "\na % b -> a = " +
+                                                        a.ToString(CultureInfo.InvariantCulture) + ", b = " +
+                                                        b.ToString(CultureInfo.InvariantCulture);
                                     end = true;
                                     Clear_Click(sender, e);
                                 }

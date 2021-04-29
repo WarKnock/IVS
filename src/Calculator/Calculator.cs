@@ -142,6 +142,8 @@ namespace Turbocalc
         {
             if (b == 0) //Division by zero
                 throw new ArgumentException("Division by zero.");
+            if (a != (int)a || b != (int)b)
+                throw new ArgumentException("Operands can only be integer numbers.");
 
             double mod = a % b;
             if (mod < 0) //Mod definition is different for negative numbers
